@@ -272,7 +272,7 @@ countdownSection.innerHTML = `
   </p>
 
   <h2>
-    La cuenta regresiva
+    Cuenta regresiva
   </h2>
 
   <div class="countdown">
