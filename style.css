@@ -272,26 +272,35 @@ a {
 .main-page {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+
+  /* IMPORTANTE:
+     no usar overflow:hidden porque puede recortar
+     la capa fixed en Safari */
+  overflow-x: clip;
+  overflow-y: visible;
+
   background: #06142d;
   opacity: 0;
   pointer-events: none;
 }
 
 /* =========================
-   IMAGEN DE FONDO FIJA
+   FONDO REAL DE LA SELECCIÓN
+   CAPA FIJA AL VIEWPORT
 ========================= */
 
 .main-page::after {
   content: "";
   position: fixed;
-  inset: 0;
   z-index: 0;
   pointer-events: none;
 
-  background-color: #06142d;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 
-  background-image:
+  background:
     linear-gradient(
       180deg,
       rgba(2, 12, 32, 0.48) 0%,
@@ -301,8 +310,13 @@ a {
     url("fondo.jpg");
 
   background-position: center center;
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
+
+  /* Evita que Safari intente tratarlo como fondo del documento */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 /* =========================
@@ -1182,9 +1196,15 @@ footer small {
 
 @media (max-width: 700px) {
 
+  /* NO cambiar el tamaño del fondo según el scroll.
+     Sigue siendo una capa fija de viewport. */
   .main-page::after {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-position: center center;
-    background-size: auto 100%;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 
@@ -1290,8 +1310,12 @@ footer small {
 @media (max-width: 430px) {
 
   .main-page::after {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-position: center center;
-    background-size: auto 100%;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 
