@@ -294,12 +294,10 @@ a {
   position: fixed;
   z-index: 0;
   pointer-events: none;
-
   top: 0;
   left: 0;
   width: 100vw;
   height: var(--stable-vh, 100vh);
-
   background:
     linear-gradient(
       180deg,
@@ -308,11 +306,9 @@ a {
       rgba(2, 10, 27, 0.82) 100%
     ),
     url("fondo.jpg");
-
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   will-change: transform;
@@ -669,6 +665,14 @@ a {
   50% {
     opacity: 0.8;
   }
+}
+
+/* =========================
+   TEXTOS MÍNIMO 18PX
+========================= */
+
+.text-18 {
+  font-size: 18px !important;
 }
 
 /* =========================
