@@ -1,342 +1,792 @@
-/* =========================================
-   APP
-========================================= */
+const CONFIG = {
+    eventDate: "2026-10-31T21:00:00-03:00",
 
-const app =
-    document.querySelector("#app");
+    mapsLink: "https://maps.app.goo.gl/5uuuT4VhBRKXMNh69",
 
+    whatsappLink: "https://wa.me/1234567890",
 
-/* =========================================
-   FUNCIÓN PARA CREAR ELEMENTOS
-========================================= */
-
-function crearElemento(
-    tag,
-    clase,
-    texto = ""
-) {
-
-    const elemento =
-        document.createElement(tag);
+    gallery: [
+        "foto1.jpg",
+        "foto2.jpg",
+        "foto3.jpg",
+        "foto4.jpg",
+        "foto5.jpg",
+        "foto6.jpg"
+    ]
+};
 
 
-    if (clase) {
-        elemento.className = clase;
-    }
+const app = document.getElementById("app");
+
+/* Siempre comenzar la invitación desde arriba */
+window.scrollTo(0, 0);
 
 
-    if (texto) {
-        elemento.textContent = texto;
-    }
+/* =========================================================
+   PORTADA
+========================================================= */
+
+const cover = document.createElement("section");
+
+cover.className = "cover";
+
+cover.innerHTML = `
+    <div class="cover-background"></div>
+
+    <div class="cover-flag"></div>
+
+    <div class="cover-spark spark-1"></div>
+    <div class="cover-spark spark-2"></div>
+    <div class="cover-spark spark-3"></div>
+
+    <div class="cover-content">
+
+        <div class="cover-stars">
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+        </div>
+
+        <p class="cover-small">MIS</p>
+
+        <div class="cover-number">18</div>
+
+        <h1>FACUNDO</h1>
+
+        <div class="cover-date">
+            31 · 10 · 2026
+        </div>
+
+        <div class="cover-line"></div>
+
+        <p class="cover-bottom">
+            UNA NOCHE ESPECIAL
+        </p>
+
+    </div>
+`;
+
+app.appendChild(cover);
 
 
-    return elemento;
+/* =========================================================
+   PÁGINA PRINCIPAL
+========================================================= */
+
+const mainPage = document.createElement("main");
+
+mainPage.className = "main-page";
+
+mainPage.style.opacity = "0";
+mainPage.style.pointerEvents = "none";
+
+app.appendChild(mainPage);
+
+
+/* =========================================================
+   DECORACIÓN DE FONDO
+========================================================= */
+
+const backgroundGlow = document.createElement("div");
+
+backgroundGlow.className = "background-glow";
+
+mainPage.appendChild(backgroundGlow);
+
+
+const backgroundGlow2 = document.createElement("div");
+
+backgroundGlow2.className = "background-glow glow-two";
+
+mainPage.appendChild(backgroundGlow2);
+
+
+const backgroundSweep = document.createElement("div");
+
+backgroundSweep.className = "background-sweep";
+
+mainPage.appendChild(backgroundSweep);
+
+
+const diagonalLines = document.createElement("div");
+
+diagonalLines.className = "diagonal-lines";
+
+mainPage.appendChild(diagonalLines);
+
+
+/* =========================================================
+   BANDERAS
+========================================================= */
+
+const argentinaFlag = document.createElement("div");
+
+argentinaFlag.className = "argentina-flag";
+
+argentinaFlag.innerHTML = `
+    <div class="flag-sun"></div>
+`;
+
+mainPage.appendChild(argentinaFlag);
+
+
+const argentinaFlag2 = document.createElement("div");
+
+argentinaFlag2.className = "argentina-flag flag-two";
+
+argentinaFlag2.innerHTML = `
+    <div class="flag-sun"></div>
+`;
+
+mainPage.appendChild(argentinaFlag2);
+
+
+/* =========================================================
+   FÚTBOL
+========================================================= */
+
+const football = document.createElement("div");
+
+football.className = "football-decor";
+
+football.innerHTML = `
+    <div class="football-center"></div>
+
+    <div class="football-line line-a"></div>
+    <div class="football-line line-b"></div>
+    <div class="football-line line-c"></div>
+    <div class="football-line line-d"></div>
+`;
+
+mainPage.appendChild(football);
+
+
+/* =========================================================
+   DESTELLOS
+========================================================= */
+
+const sparkleContainer = document.createElement("div");
+
+sparkleContainer.className = "gold-sparkles";
+
+for (let i = 1; i <= 8; i++) {
+
+    const sparkle = document.createElement("span");
+
+    sparkle.className = `gold-spark sparkle-${i}`;
+
+    sparkleContainer.appendChild(sparkle);
+}
+
+mainPage.appendChild(sparkleContainer);
+
+
+/* =========================================================
+   SEPARADORES
+========================================================= */
+
+function createSectionSeparator() {
+
+    const separator = document.createElement("div");
+
+    separator.className = "section-separator";
+
+    separator.innerHTML = `
+        <span class="separator-line"></span>
+
+        <div class="separator-stars">
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+        </div>
+
+        <span class="separator-line"></span>
+    `;
+
+    return separator;
 }
 
 
-/* =========================================
-   HERO
-========================================= */
+/* =========================================================
+   BIENVENIDA
+========================================================= */
 
-const hero =
-    crearElemento(
-        "section",
-        "hero"
-    );
+const welcome = document.createElement("section");
 
-app.appendChild(hero);
+welcome.className = "welcome section";
 
+welcome.innerHTML = `
+    <div class="welcome-content">
 
-/* =========================================
-   LUCES AMBIENTALES
-========================================= */
+        <div class="mini-badge">
+            18 AÑOS
+        </div>
 
-const lightOne =
-    crearElemento(
-        "div",
-        "hero-light hero-light-one"
-    );
+        <h2>
+            UNA NOCHE<br>
+            <span>ESPECIAL</span>
+        </h2>
 
+        <p>
+            Hay momentos que merecen ser celebrados
+            y compartidos con quienes más queremos.
+        </p>
 
-const lightTwo =
-    crearElemento(
-        "div",
-        "hero-light hero-light-two"
-    );
+    </div>
+`;
 
+mainPage.appendChild(welcome);
 
-hero.appendChild(lightOne);
-hero.appendChild(lightTwo);
+mainPage.appendChild(createSectionSeparator());
 
 
-/* =========================================
-   TEXTURA
-========================================= */
+/* =========================================================
+   CUENTA REGRESIVA
+========================================================= */
 
-const texture =
-    crearElemento(
-        "div",
-        "hero-texture"
-    );
+const countdownSection = document.createElement("section");
 
+countdownSection.className = "countdown-section section";
 
-hero.appendChild(texture);
+countdownSection.innerHTML = `
+    <p class="section-kicker">
+        FALTA MUY POCO
+    </p>
 
+    <h2>
+        La cuenta regresiva
+    </h2>
 
-/* =========================================
-   CONTENIDO
-========================================= */
+    <div class="countdown">
 
-const content =
-    crearElemento(
-        "div",
-        "hero-content"
-    );
+        <div class="count-box">
+            <strong id="days">00</strong>
+            <span>DÍAS</span>
+        </div>
 
+        <div class="count-box">
+            <strong id="hours">00</strong>
+            <span>HORAS</span>
+        </div>
 
-hero.appendChild(content);
+        <div class="count-box">
+            <strong id="minutes">00</strong>
+            <span>MINUTOS</span>
+        </div>
 
+        <div class="count-box">
+            <strong id="seconds">00</strong>
+            <span>SEGUNDOS</span>
+        </div>
 
-/* =========================================
-   FRASE SUPERIOR
-========================================= */
+    </div>
+`;
 
-const eyebrow =
-    crearElemento(
-        "p",
-        "hero-eyebrow",
-        "EL PARTIDO MÁS IMPORTANTE ESTÁ POR COMENZAR"
-    );
+mainPage.appendChild(countdownSection);
 
+mainPage.appendChild(createSectionSeparator());
 
-content.appendChild(eyebrow);
 
+/* =========================================================
+   DATOS DEL EVENTO
+========================================================= */
 
-/* =========================================
-   NÚMERO 18
-========================================= */
+const eventSection = document.createElement("section");
 
-const number =
-    crearElemento(
-        "div",
-        "hero-number"
-    );
+eventSection.className = "event-section section";
 
+eventSection.innerHTML = `
+    <p class="section-kicker">
+        TODO LISTO
+    </p>
 
-const numberBack =
-    crearElemento(
-        "span",
-        "hero-number-back",
-        "18"
-    );
+    <h2>
+        Datos del evento
+    </h2>
 
+    <div class="event-grid">
 
-const numberFront =
-    crearElemento(
-        "span",
-        "hero-number-front",
-        "18"
-    );
+        <div class="event-card">
+            <div class="event-label">
+                FECHA
+            </div>
 
+            <div class="event-value">
+                31 DE OCTUBRE
+            </div>
+        </div>
 
-number.appendChild(numberBack);
-number.appendChild(numberFront);
+        <div class="event-card">
+            <div class="event-label">
+                HORA
+            </div>
 
-content.appendChild(number);
+            <div class="event-value">
+                21:00 HS
+            </div>
+        </div>
 
+        <div class="event-card">
+            <div class="event-label">
+                DRESS CODE
+            </div>
 
-/* =========================================
-   NOMBRE
-========================================= */
+            <div class="event-value">
+                ELEGANTE SPORT
+            </div>
+        </div>
 
-const name =
-    crearElemento(
-        "h1",
-        "hero-name",
-        "FACUNDO"
-    );
+    </div>
+`;
 
+mainPage.appendChild(eventSection);
 
-content.appendChild(name);
+mainPage.appendChild(createSectionSeparator());
 
 
-/* =========================================
-   DIVISOR
-========================================= */
+/* =========================================================
+   UBICACIÓN
+========================================================= */
 
-const divider =
-    crearElemento(
-        "div",
-        "hero-divider"
-    );
+const locationSection = document.createElement("section");
 
+locationSection.className = "location-section section";
 
-const lineOne =
-    crearElemento(
-        "span",
-        "hero-divider-line"
-    );
+locationSection.innerHTML = `
+    <p class="section-kicker">
+        NOS ENCONTRAMOS EN
+    </p>
 
+    <h2>
+        Quinta de los<br>
+        <span>Tres Hermanos</span>
+    </h2>
 
-const diamond =
-    crearElemento(
-        "i",
-        "hero-divider-diamond"
-    );
+    <p class="location-text">
+        Prepará todo para una noche increíble.
+    </p>
 
+    <a
+        class="main-button location-button"
+        href="${CONFIG.mapsLink}"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <span>VER UBICACIÓN</span>
+        <b>↗</b>
+    </a>
+`;
 
-const lineTwo =
-    crearElemento(
-        "span",
-        "hero-divider-line"
-    );
+mainPage.appendChild(locationSection);
 
+mainPage.appendChild(createSectionSeparator());
 
-divider.appendChild(lineOne);
-divider.appendChild(diamond);
-divider.appendChild(lineTwo);
 
-content.appendChild(divider);
+/* =========================================================
+   GALERÍA
+========================================================= */
 
+const gallerySection = document.createElement("section");
 
-/* =========================================
-   FECHA
-========================================= */
+gallerySection.className = "gallery-section section";
 
-const date =
-    crearElemento(
-        "p",
-        "hero-date",
-        "31 · 10 · 2026"
-    );
+gallerySection.innerHTML = `
+    <p class="section-kicker">
+        MOMENTOS
+    </p>
 
+    <h2>
+        Galería
+    </h2>
 
-content.appendChild(date);
+    <p class="gallery-intro">
+        Algunos recuerdos que ya empiezan a formar
+        parte de esta historia.
+    </p>
 
+    <div class="gallery-grid"></div>
+`;
 
-/* =========================================
-   INDICADOR DE SCROLL
-========================================= */
+mainPage.appendChild(gallerySection);
 
-const scroll =
-    crearElemento(
-        "div",
-        "hero-scroll"
-    );
 
+const galleryGrid =
+    gallerySection.querySelector(".gallery-grid");
 
-const scrollText =
-    crearElemento(
-        "span",
-        "",
-        "DESLIZÁ"
-    );
 
+CONFIG.gallery.forEach((photo, index) => {
 
-const scrollLine =
-    crearElemento(
-        "div",
-        "hero-scroll-line"
-    );
+    const item = document.createElement("div");
 
+    item.className = "gallery-item";
 
-scroll.appendChild(scrollText);
-scroll.appendChild(scrollLine);
+    item.innerHTML = `
+        <img
+            src="${photo}"
+            alt="Foto de Facundo"
+            loading="lazy"
+        >
 
-hero.appendChild(scroll);
+        <div class="gallery-overlay">
+            <span>0${index + 1}</span>
+        </div>
+    `;
 
+    galleryGrid.appendChild(item);
+});
 
-/* =========================================
-   MOVIMIENTO DE LUCES CON MOUSE
-========================================= */
 
-window.addEventListener(
-    "mousemove",
-    (event) => {
+mainPage.appendChild(createSectionSeparator());
 
-        const x =
-            (
-                event.clientX /
-                window.innerWidth -
-                0.5
-            ) * 2;
 
+/* =========================================================
+   CONFIRMACIÓN
+========================================================= */
 
-        const y =
-            (
-                event.clientY /
-                window.innerHeight -
-                0.5
-            ) * 2;
+const confirmationSection =
+    document.createElement("section");
 
+confirmationSection.className =
+    "confirmation-section section";
 
-        lightOne.style.transform = `
-            translate(
-                ${x * 25}px,
-                ${y * 20}px
-            )
-        `;
+confirmationSection.innerHTML = `
+    <div class="confirmation-stars">
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+    </div>
 
+    <p class="section-kicker">
+        TE ESPERO
+    </p>
 
-        lightTwo.style.transform = `
-            translate(
-                ${x * -20}px,
-                ${y * -15}px
-            )
-        `;
+    <h2>
+        Los 18 se viven<br>
+        <span>una sola vez</span>
+    </h2>
+
+    <p>
+        Confirmá tu asistencia y preparate para
+        compartir esta noche conmigo.
+    </p>
+
+    <a
+        class="main-button whatsapp-button"
+        href="${CONFIG.whatsappLink}"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <span>CONFIRMAR ASISTENCIA</span>
+        <b>↗</b>
+    </a>
+`;
+
+mainPage.appendChild(confirmationSection);
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+const footer = document.createElement("footer");
+
+footer.innerHTML = `
+    <div class="footer-stars">
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+    </div>
+
+    <div class="footer-number">
+        18
+    </div>
+
+    <p>
+        FACUNDO · 2026
+    </p>
+
+    <small>
+        Nos vemos en la fiesta.
+    </small>
+`;
+
+mainPage.appendChild(footer);
+
+
+/* =========================================================
+   CUENTA REGRESIVA
+========================================================= */
+
+const targetDate =
+    new Date(CONFIG.eventDate).getTime();
+
+
+function updateCountdown() {
+
+    const now = Date.now();
+
+    const difference =
+        targetDate - now;
+
+
+    if (difference <= 0) {
+
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
+        return;
     }
-);
 
 
-/* =========================================
-   MOVIMIENTO EN CELULAR
-========================================= */
-
-window.addEventListener(
-    "deviceorientation",
-    (event) => {
-
-        if (
-            event.gamma === null ||
-            event.beta === null
-        ) {
-            return;
-        }
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
 
 
-        const x =
-            Math.max(
-                -1,
-                Math.min(
-                    1,
-                    event.gamma / 30
-                )
-            );
+    const hours =
+        Math.floor(
+            (difference /
+                (1000 * 60 * 60)) % 24
+        );
 
 
-        const y =
-            Math.max(
-                -1,
-                Math.min(
-                    1,
-                    (event.beta - 45) / 30
-                )
-            );
+    const minutes =
+        Math.floor(
+            (difference /
+                (1000 * 60)) % 60
+        );
 
 
-        lightOne.style.transform = `
-            translate(
-                ${x * 20}px,
-                ${y * 15}px
-            )
-        `;
+    const seconds =
+        Math.floor(
+            (difference / 1000) % 60
+        );
 
 
-        lightTwo.style.transform = `
-            translate(
-                ${x * -15}px,
-                ${y * -10}px
-            )
-        `;
-    }
-);
+    document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+
+/* =========================================================
+   ANIMACIÓN DE ENTRADA
+========================================================= */
+
+const welcomeElement =
+    mainPage.querySelector(".welcome");
+
+const countdownElement =
+    mainPage.querySelector(".countdown-section");
+
+const eventElement =
+    mainPage.querySelector(".event-section");
+
+const locationElement =
+    mainPage.querySelector(".location-section");
+
+const galleryElement =
+    mainPage.querySelector(".gallery-section");
+
+const confirmationElement =
+    mainPage.querySelector(".confirmation-section");
+
+const eventCards =
+    mainPage.querySelectorAll(".event-card");
+
+const galleryItems =
+    mainPage.querySelectorAll(".gallery-item");
+
+
+const animatedContent = [
+    welcomeElement,
+    countdownElement,
+    eventElement,
+    locationElement,
+    galleryElement,
+    confirmationElement
+];
+
+
+animatedContent.forEach(element => {
+
+    element.classList.add("page-entry");
+
+});
+
+
+eventCards.forEach(card => {
+
+    card.classList.add("page-entry");
+
+});
+
+
+galleryItems.forEach(item => {
+
+    item.classList.add("page-entry");
+
+});
+
+
+/* =========================================================
+   TRANSICIÓN DESPUÉS DE 3 SEGUNDOS
+========================================================= */
+
+setTimeout(() => {
+
+    /*
+        IMPORTANTE:
+        Siempre volver al comienzo justo antes
+        de mostrar la página principal.
+    */
+
+    window.scrollTo(0, 0);
+
+
+    /*
+        Desaparece la portada.
+    */
+
+    cover.style.transition =
+        "opacity 0.25s ease-out, transform 0.25s ease-out";
+
+    cover.style.opacity = "0";
+
+    cover.style.transform = "scale(1.01)";
+
+
+    /*
+        Aparece la página principal.
+    */
+
+    mainPage.style.opacity = "1";
+
+    mainPage.style.pointerEvents = "auto";
+
+
+    /*
+        BIENVENIDA
+    */
+
+    setTimeout(() => {
+
+        welcomeElement.classList.add("entry-visible");
+
+    }, 100);
+
+
+    /*
+        CUENTA REGRESIVA
+    */
+
+    setTimeout(() => {
+
+        countdownElement.classList.add("entry-visible");
+
+    }, 400);
+
+
+    /*
+        DATOS
+    */
+
+    setTimeout(() => {
+
+        eventElement.classList.add("entry-visible");
+
+    }, 700);
+
+
+    /*
+        TARJETAS DE DATOS
+    */
+
+    eventCards.forEach((card, index) => {
+
+        setTimeout(() => {
+
+            card.classList.add("entry-visible");
+
+        }, 900 + index * 180);
+
+    });
+
+
+    /*
+        UBICACIÓN
+    */
+
+    setTimeout(() => {
+
+        locationElement.classList.add("entry-visible");
+
+    }, 1450);
+
+
+    /*
+        GALERÍA
+    */
+
+    setTimeout(() => {
+
+        galleryElement.classList.add("entry-visible");
+
+    }, 1750);
+
+
+    /*
+        FOTOS
+    */
+
+    galleryItems.forEach((item, index) => {
+
+        setTimeout(() => {
+
+            item.classList.add("entry-visible");
+
+        }, 1950 + index * 120);
+
+    });
+
+
+    /*
+        CONFIRMACIÓN
+    */
+
+    setTimeout(() => {
+
+        confirmationElement.classList.add("entry-visible");
+
+    }, 2750);
+
+
+    /*
+        Eliminamos la portada.
+    */
+
+    setTimeout(() => {
+
+        cover.remove();
+
+    }, 300);
+
+
+}, 3000);
