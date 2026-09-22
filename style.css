@@ -273,7 +273,18 @@ a {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  background: #06142d;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2, 12, 32, 0.48) 0%,
+      rgba(3, 16, 39, 0.68) 45%,
+      rgba(2, 10, 27, 0.82) 100%
+    ),
+    url("fondo.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   opacity: 0;
   pointer-events: none;
 }
@@ -283,25 +294,7 @@ a {
 ========================= */
 
 .main-page::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(2, 12, 32, 0.48) 0%,
-      rgba(3, 16, 39, 0.68) 45%,
-      rgba(2, 10, 27, 0.82) 100%
-    ),
-    url("fondo.jpg");
-
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
+  content: none;
 }
 
 /* =========================
@@ -1180,10 +1173,20 @@ footer small {
 ========================= */
 
 @media (max-width: 700px) {
-  .main-page::after {
+
+  .main-page {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(2, 12, 32, 0.48) 0%,
+        rgba(3, 16, 39, 0.68) 45%,
+        rgba(2, 10, 27, 0.82) 100%
+      ),
+      url("fondo.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .section {
@@ -1286,10 +1289,20 @@ footer small {
 }
 
 @media (max-width: 430px) {
-  .main-page::after {
+
+  .main-page {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(2, 12, 32, 0.48) 0%,
+        rgba(3, 16, 39, 0.68) 45%,
+        rgba(2, 10, 27, 0.82) 100%
+      ),
+      url("fondo.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .cover-stars {
@@ -1440,6 +1453,7 @@ footer small {
 ========================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   * {
     scroll-behavior: auto !important;
   }
