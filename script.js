@@ -3,12 +3,11 @@ const CONFIG = {
   mapsLink: "https://maps.app.goo.gl/5uuuT4VhBRKXMNh69",
   whatsappLink: "https://wa.me/1234567890",
   gallery: [
-    "foto1.jpg",
-    "foto2.jpg",
-    "foto3.jpg",
-    "foto4.jpg",
-    "foto5.jpg",
-    "foto6.jpg"
+    "foto1.png",
+    "foto2.png",
+    "foto3.png",
+    "foto4.png",
+    "foto5.png"
   ]
 };
 
@@ -332,9 +331,14 @@ gallerySection.innerHTML = `
 
 mainPage.appendChild(gallerySection);
 
-const galleryCarousel = gallerySection.querySelector(".gallery-carousel");
-const galleryTrack = gallerySection.querySelector(".gallery-track");
-const galleryDots = gallerySection.querySelector(".gallery-dots");
+const galleryCarousel =
+  gallerySection.querySelector(".gallery-carousel");
+
+const galleryTrack =
+  gallerySection.querySelector(".gallery-track");
+
+const galleryDots =
+  gallerySection.querySelector(".gallery-dots");
 
 /* =========================
    CREATE SLIDES
@@ -365,7 +369,10 @@ CONFIG.gallery.forEach((photo, index) => {
   }
 
   dot.setAttribute("aria-label", `Ver foto ${index + 1}`);
-  dot.setAttribute("aria-current", index === 0 ? "true" : "false");
+  dot.setAttribute(
+    "aria-current",
+    index === 0 ? "true" : "false"
+  );
 
   galleryDots.appendChild(dot);
 });
@@ -511,6 +518,89 @@ let isDraggingGallery = false;
 let horizontalGesture = false;
 
 /* =========================
+   CALCULAR ALTURA DE FOTOS
+========================= */
+
+function getSlideHeight(index) {
+  const slide = gallerySlides[index];
+
+  if (!slide) {
+    return null;
+  }
+
+  const image = slide.querySelector("img");
+
+  if (
+    !image ||
+    !image.naturalWidth ||
+    !image.naturalHeight
+  ) {
+    return null;
+  }
+
+  const carouselWidth =
+    galleryCarousel.getBoundingClientRect().width;
+
+  if (!carouselWidth) {
+    return null;
+  }
+
+  return (
+    carouselWidth *
+    (image.naturalHeight / image.naturalWidth)
+  );
+}
+
+function updateGalleryHeight(animate = true) {
+  const height = getSlideHeight(currentGalleryIndex);
+
+  if (!height || !Number.isFinite(height)) {
+    return;
+  }
+
+  galleryCarousel.style.transition = animate
+    ? "height 0.45s cubic-bezier(0.22,1,0.36,1)"
+    : "none";
+
+  galleryCarousel.style.height = `${height}px`;
+
+  gallerySlides.forEach((slide, index) => {
+    const slideHeight = getSlideHeight(index);
+
+    if (slideHeight && Number.isFinite(slideHeight)) {
+      slide.style.height = `${slideHeight}px`;
+    }
+  });
+}
+
+/* =========================
+   IMÁGENES CARGADAS
+========================= */
+
+gallerySlides.forEach((slide, index) => {
+  const image = slide.querySelector("img");
+
+  if (!image) {
+    return;
+  }
+
+  image.addEventListener("load", () => {
+    const slideHeight = getSlideHeight(index);
+
+    if (
+      slideHeight &&
+      Number.isFinite(slideHeight)
+    ) {
+      slide.style.height = `${slideHeight}px`;
+    }
+
+    if (index === currentGalleryIndex) {
+      updateGalleryHeight(false);
+    }
+  });
+});
+
+/* =========================
    SHOW SLIDE
 ========================= */
 
@@ -548,6 +638,8 @@ function showGallerySlide(index, animate = true) {
       isActive ? "true" : "false"
     );
   });
+
+  updateGalleryHeight(animate);
 }
 
 function nextGallerySlide() {
@@ -597,7 +689,10 @@ galleryDotButtons.forEach((dot, index) => {
 ========================= */
 
 galleryCarousel.addEventListener("pointerdown", (event) => {
-  if (event.pointerType === "mouse" && event.button !== 0) {
+  if (
+    event.pointerType === "mouse" &&
+    event.button !== 0
+  ) {
     return;
   }
 
@@ -651,6 +746,7 @@ galleryCarousel.addEventListener("pointermove", (event) => {
         horizontalGesture = true;
       } else {
         isDraggingGallery = false;
+
         galleryTrack.style.transition =
           "transform 0.45s cubic-bezier(0.22,1,0.36,1)";
 
@@ -658,6 +754,7 @@ galleryCarousel.addEventListener("pointermove", (event) => {
           `translate3d(-${currentGalleryIndex * 100}%, 0, 0)`;
 
         startGalleryAutoPlay();
+
         return;
       }
     }
@@ -775,6 +872,14 @@ galleryCarousel.addEventListener("keydown", (event) => {
 });
 
 /* =========================
+   REDIMENSIONAMIENTO
+========================= */
+
+window.addEventListener("resize", () => {
+  updateGalleryHeight(false);
+});
+
+/* =========================
    POSICIÓN INICIAL
 ========================= */
 
@@ -863,6 +968,7 @@ setTimeout(() => {
   setTimeout(() => {
     galleryElement.classList.add("entry-visible");
     resetGalleryAutoPlay();
+    updateGalleryHeight(false);
   }, 1750);
 
   setTimeout(() => {
