@@ -399,40 +399,55 @@ gallerySection.innerHTML = `
         Galería
     </h2>
 
-    <p class="gallery-intro">
-        Algunos recuerdos que ya empiezan a formar
-        parte de esta historia.
-    </p>
+    <div class="gallery-carousel">
 
-    <div class="gallery-grid"></div>
+        <div class="gallery-track"></div>
+
+    </div>
+
+    <div class="gallery-dots"></div>
 `;
 
 mainPage.appendChild(gallerySection);
 
 
-const galleryGrid =
-    gallerySection.querySelector(".gallery-grid");
+const galleryTrack =
+    gallerySection.querySelector(".gallery-track");
+
+const galleryDots =
+    gallerySection.querySelector(".gallery-dots");
 
 
 CONFIG.gallery.forEach((photo, index) => {
 
-    const item = document.createElement("div");
+    const slide = document.createElement("div");
 
-    item.className = "gallery-item";
+    slide.className = "gallery-slide";
 
-    item.innerHTML = `
+    slide.innerHTML = `
         <img
             src="${photo}"
-            alt="Foto de Facundo"
-            loading="lazy"
+            alt="Imagen de la galería"
+            loading="${index === 0 ? "eager" : "lazy"}"
         >
-
-        <div class="gallery-overlay">
-            <span>0${index + 1}</span>
-        </div>
     `;
 
-    galleryGrid.appendChild(item);
+    galleryTrack.appendChild(slide);
+
+
+    const dot = document.createElement("button");
+
+    dot.type = "button";
+
+    dot.className =
+        `gallery-dot ${index === 0 ? "active" : ""}`;
+
+    dot.setAttribute(
+        "aria-label",
+        `Ver foto ${index + 1}`
+    );
+
+    galleryDots.appendChild(dot);
 });
 
 
@@ -587,6 +602,180 @@ setInterval(updateCountdown, 1000);
 
 
 /* =========================================================
+   CARRUSEL DE GALERÍA
+========================================================= */
+
+const gallerySlides =
+    gallerySection.querySelectorAll(".gallery-slide");
+
+const galleryDotButtons =
+    gallerySection.querySelectorAll(".gallery-dot");
+
+let currentGalleryIndex = 0;
+
+let galleryAutoPlay = null;
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+function showGallerySlide(index, animate = true) {
+
+    if (!gallerySlides.length) {
+        return;
+    }
+
+
+    if (index < 0) {
+        index = gallerySlides.length - 1;
+    }
+
+    if (index >= gallerySlides.length) {
+        index = 0;
+    }
+
+
+    currentGalleryIndex = index;
+
+
+    galleryTrack.style.transition =
+        animate
+            ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)"
+            : "none";
+
+
+    galleryTrack.style.transform =
+        `translateX(-${index * 100}%)`;
+
+
+    galleryDotButtons.forEach((dot, dotIndex) => {
+
+        dot.classList.toggle(
+            "active",
+            dotIndex === index
+        );
+
+    });
+}
+
+
+function nextGallerySlide() {
+
+    showGallerySlide(
+        currentGalleryIndex + 1
+    );
+}
+
+
+function previousGallerySlide() {
+
+    showGallerySlide(
+        currentGalleryIndex - 1
+    );
+}
+
+
+/* =========================================================
+   CAMBIO AUTOMÁTICO
+========================================================= */
+
+function startGalleryAutoPlay() {
+
+    clearInterval(galleryAutoPlay);
+
+
+    galleryAutoPlay = setInterval(() => {
+
+        nextGallerySlide();
+
+    }, 4500);
+}
+
+
+function resetGalleryAutoPlay() {
+
+    clearInterval(galleryAutoPlay);
+
+    startGalleryAutoPlay();
+}
+
+
+startGalleryAutoPlay();
+
+
+/* =========================================================
+   PUNTITOS
+========================================================= */
+
+galleryDotButtons.forEach((dot, index) => {
+
+    dot.addEventListener("click", () => {
+
+        showGallerySlide(index);
+
+        resetGalleryAutoPlay();
+
+    });
+
+});
+
+
+/* =========================================================
+   SWIPE EN CELULAR
+========================================================= */
+
+galleryTrack.addEventListener(
+    "touchstart",
+    event => {
+
+        touchStartX =
+            event.changedTouches[0].screenX;
+
+    },
+    { passive: true }
+);
+
+
+galleryTrack.addEventListener(
+    "touchend",
+    event => {
+
+        touchEndX =
+            event.changedTouches[0].screenX;
+
+
+        const difference =
+            touchStartX - touchEndX;
+
+
+        const minimumSwipe = 45;
+
+
+        if (Math.abs(difference) < minimumSwipe) {
+            return;
+        }
+
+
+        if (difference > 0) {
+
+            nextGallerySlide();
+
+        } else {
+
+            previousGallerySlide();
+
+        }
+
+
+        resetGalleryAutoPlay();
+
+    },
+    { passive: true }
+);
+
+
+/* =========================================================
    ANIMACIÓN DE ENTRADA
 ========================================================= */
 
@@ -610,9 +799,6 @@ const confirmationElement =
 
 const eventCards =
     mainPage.querySelectorAll(".event-card");
-
-const galleryItems =
-    mainPage.querySelectorAll(".gallery-item");
 
 
 const animatedContent = [
@@ -639,13 +825,6 @@ eventCards.forEach(card => {
 });
 
 
-galleryItems.forEach(item => {
-
-    item.classList.add("page-entry");
-
-});
-
-
 /* =========================================================
    TRANSICIÓN DESPUÉS DE 3 SEGUNDOS
 ========================================================= */
@@ -653,9 +832,7 @@ galleryItems.forEach(item => {
 setTimeout(() => {
 
     /*
-        IMPORTANTE:
-        Siempre volver al comienzo justo antes
-        de mostrar la página principal.
+        Siempre volver al comienzo.
     */
 
     window.scrollTo(0, 0);
@@ -674,7 +851,7 @@ setTimeout(() => {
 
 
     /*
-        Aparece la página principal.
+        Aparece la página.
     */
 
     mainPage.style.opacity = "1";
@@ -716,7 +893,7 @@ setTimeout(() => {
 
 
     /*
-        TARJETAS DE DATOS
+        TARJETAS
     */
 
     eventCards.forEach((card, index) => {
@@ -750,21 +927,6 @@ setTimeout(() => {
         galleryElement.classList.add("entry-visible");
 
     }, 1750);
-
-
-    /*
-        FOTOS
-    */
-
-    galleryItems.forEach((item, index) => {
-
-        setTimeout(() => {
-
-            item.classList.add("entry-visible");
-
-        }, 1950 + index * 120);
-
-    });
 
 
     /*
