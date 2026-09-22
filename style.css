@@ -1196,13 +1196,11 @@ footer small {
 
 @media (max-width: 700px) {
 
-  /* NO cambiar el tamaño del fondo según el scroll.
-     Sigue siendo una capa fija de viewport. */
   .main-page::after {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1313,7 +1311,7 @@ footer small {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
