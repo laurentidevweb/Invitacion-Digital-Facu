@@ -951,6 +951,7 @@ a {
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 19px;
 }
 
 .gallery-track {
