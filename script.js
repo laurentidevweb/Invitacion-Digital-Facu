@@ -18,7 +18,11 @@ const CONFIG = {
 
 const app = document.getElementById("app");
 
-/* Siempre comenzar la invitación desde arriba */
+
+/* =========================================================
+   COMENZAR SIEMPRE DESDE ARRIBA
+========================================================= */
+
 window.scrollTo(0, 0);
 
 
@@ -307,6 +311,7 @@ eventSection.innerHTML = `
     <div class="event-grid">
 
         <div class="event-card">
+
             <div class="event-label">
                 FECHA
             </div>
@@ -314,9 +319,11 @@ eventSection.innerHTML = `
             <div class="event-value">
                 31 DE OCTUBRE
             </div>
+
         </div>
 
         <div class="event-card">
+
             <div class="event-label">
                 HORA
             </div>
@@ -324,9 +331,11 @@ eventSection.innerHTML = `
             <div class="event-value">
                 21:00 HS
             </div>
+
         </div>
 
         <div class="event-card">
+
             <div class="event-label">
                 DRESS CODE
             </div>
@@ -334,6 +343,7 @@ eventSection.innerHTML = `
             <div class="event-value">
                 ELEGANTE SPORT
             </div>
+
         </div>
 
     </div>
@@ -418,6 +428,10 @@ const galleryDots =
     gallerySection.querySelector(".gallery-dots");
 
 
+/* =========================================================
+   CREAR FOTOS Y PUNTITOS
+========================================================= */
+
 CONFIG.gallery.forEach((photo, index) => {
 
     const slide = document.createElement("div");
@@ -427,8 +441,8 @@ CONFIG.gallery.forEach((photo, index) => {
     slide.innerHTML = `
         <img
             src="${photo}"
-            alt="Imagen de la galería"
-            loading="${index === 0 ? "eager" : "lazy"}"
+            alt=""
+            draggable="false"
         >
     `;
 
@@ -466,9 +480,11 @@ confirmationSection.className =
 
 confirmationSection.innerHTML = `
     <div class="confirmation-stars">
+
         <span>★</span>
         <span>★</span>
         <span>★</span>
+
     </div>
 
     <p class="section-kicker">
@@ -507,9 +523,11 @@ const footer = document.createElement("footer");
 
 footer.innerHTML = `
     <div class="footer-stars">
+
         <span>★</span>
         <span>★</span>
         <span>★</span>
+
     </div>
 
     <div class="footer-number">
@@ -602,7 +620,7 @@ setInterval(updateCountdown, 1000);
 
 
 /* =========================================================
-   CARRUSEL DE GALERÍA
+   CARRUSEL
 ========================================================= */
 
 const gallerySlides =
@@ -611,14 +629,21 @@ const gallerySlides =
 const galleryDotButtons =
     gallerySection.querySelectorAll(".gallery-dot");
 
+
 let currentGalleryIndex = 0;
 
 let galleryAutoPlay = null;
 
 let touchStartX = 0;
 
-let touchEndX = 0;
+let touchStartY = 0;
 
+let isSwiping = false;
+
+
+/* =========================================================
+   MOSTRAR FOTO
+========================================================= */
 
 function showGallerySlide(index, animate = true) {
 
@@ -631,6 +656,7 @@ function showGallerySlide(index, animate = true) {
         index = gallerySlides.length - 1;
     }
 
+
     if (index >= gallerySlides.length) {
         index = 0;
     }
@@ -641,12 +667,12 @@ function showGallerySlide(index, animate = true) {
 
     galleryTrack.style.transition =
         animate
-            ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)"
+            ? "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
             : "none";
 
 
     galleryTrack.style.transform =
-        `translateX(-${index * 100}%)`;
+        `translate3d(-${index * 100}%, 0, 0)`;
 
 
     galleryDotButtons.forEach((dot, dotIndex) => {
@@ -659,6 +685,10 @@ function showGallerySlide(index, animate = true) {
     });
 }
 
+
+/* =========================================================
+   SIGUIENTE / ANTERIOR
+========================================================= */
 
 function nextGallerySlide() {
 
@@ -677,7 +707,7 @@ function previousGallerySlide() {
 
 
 /* =========================================================
-   CAMBIO AUTOMÁTICO
+   AUTOPLAY
 ========================================================= */
 
 function startGalleryAutoPlay() {
@@ -701,9 +731,6 @@ function resetGalleryAutoPlay() {
 }
 
 
-startGalleryAutoPlay();
-
-
 /* =========================================================
    PUNTITOS
 ========================================================= */
@@ -722,15 +749,49 @@ galleryDotButtons.forEach((dot, index) => {
 
 
 /* =========================================================
-   SWIPE EN CELULAR
+   SWIPE
 ========================================================= */
 
 galleryTrack.addEventListener(
     "touchstart",
     event => {
 
-        touchStartX =
-            event.changedTouches[0].screenX;
+        const touch =
+            event.changedTouches[0];
+
+        touchStartX = touch.clientX;
+
+        touchStartY = touch.clientY;
+
+        isSwiping = false;
+
+    },
+    { passive: true }
+);
+
+
+galleryTrack.addEventListener(
+    "touchmove",
+    event => {
+
+        const touch =
+            event.changedTouches[0];
+
+        const differenceX =
+            Math.abs(touch.clientX - touchStartX);
+
+        const differenceY =
+            Math.abs(touch.clientY - touchStartY);
+
+
+        if (
+            differenceX > 15 &&
+            differenceX > differenceY
+        ) {
+
+            isSwiping = true;
+
+        }
 
     },
     { passive: true }
@@ -741,23 +802,27 @@ galleryTrack.addEventListener(
     "touchend",
     event => {
 
-        touchEndX =
-            event.changedTouches[0].screenX;
+        const touch =
+            event.changedTouches[0];
 
-
-        const difference =
-            touchStartX - touchEndX;
+        const differenceX =
+            touchStartX - touch.clientX;
 
 
         const minimumSwipe = 45;
 
 
-        if (Math.abs(difference) < minimumSwipe) {
+        if (
+            !isSwiping ||
+            Math.abs(differenceX) < minimumSwipe
+        ) {
+
             return;
+
         }
 
 
-        if (difference > 0) {
+        if (differenceX > 0) {
 
             nextGallerySlide();
 
@@ -770,9 +835,20 @@ galleryTrack.addEventListener(
 
         resetGalleryAutoPlay();
 
+        isSwiping = false;
+
     },
     { passive: true }
 );
+
+
+/* =========================================================
+   INICIO DEL CARRUSEL
+========================================================= */
+
+showGallerySlide(0, false);
+
+startGalleryAutoPlay();
 
 
 /* =========================================================
@@ -831,16 +907,8 @@ eventCards.forEach(card => {
 
 setTimeout(() => {
 
-    /*
-        Siempre volver al comienzo.
-    */
-
     window.scrollTo(0, 0);
 
-
-    /*
-        Desaparece la portada.
-    */
 
     cover.style.transition =
         "opacity 0.25s ease-out, transform 0.25s ease-out";
@@ -850,18 +918,12 @@ setTimeout(() => {
     cover.style.transform = "scale(1.01)";
 
 
-    /*
-        Aparece la página.
-    */
-
     mainPage.style.opacity = "1";
 
     mainPage.style.pointerEvents = "auto";
 
 
-    /*
-        BIENVENIDA
-    */
+    /* BIENVENIDA */
 
     setTimeout(() => {
 
@@ -870,9 +932,7 @@ setTimeout(() => {
     }, 100);
 
 
-    /*
-        CUENTA REGRESIVA
-    */
+    /* CUENTA REGRESIVA */
 
     setTimeout(() => {
 
@@ -881,9 +941,7 @@ setTimeout(() => {
     }, 400);
 
 
-    /*
-        DATOS
-    */
+    /* DATOS */
 
     setTimeout(() => {
 
@@ -892,9 +950,7 @@ setTimeout(() => {
     }, 700);
 
 
-    /*
-        TARJETAS
-    */
+    /* TARJETAS */
 
     eventCards.forEach((card, index) => {
 
@@ -907,9 +963,7 @@ setTimeout(() => {
     });
 
 
-    /*
-        UBICACIÓN
-    */
+    /* UBICACIÓN */
 
     setTimeout(() => {
 
@@ -918,20 +972,18 @@ setTimeout(() => {
     }, 1450);
 
 
-    /*
-        GALERÍA
-    */
+    /* GALERÍA */
 
     setTimeout(() => {
 
         galleryElement.classList.add("entry-visible");
 
+        resetGalleryAutoPlay();
+
     }, 1750);
 
 
-    /*
-        CONFIRMACIÓN
-    */
+    /* CONFIRMACIÓN */
 
     setTimeout(() => {
 
@@ -940,15 +992,12 @@ setTimeout(() => {
     }, 2750);
 
 
-    /*
-        Eliminamos la portada.
-    */
+    /* ELIMINAR PORTADA */
 
     setTimeout(() => {
 
         cover.remove();
 
     }, 300);
-
 
 }, 3000);
