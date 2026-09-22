@@ -36,8 +36,17 @@ a {
   justify-content: center;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 42%, rgba(90, 177, 231, 0.22), transparent 30%),
-    linear-gradient(145deg, #020b1b, #071c3d 55%, #031027);
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(90, 177, 231, 0.22),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #020b1b,
+      #071c3d 55%,
+      #031027
+    );
   opacity: 1;
   transform: scale(1);
   will-change: opacity, transform;
@@ -940,18 +949,18 @@ a {
 .gallery-carousel {
   position: relative;
   width: 100%;
-  max-width: 850px;
+  max-width: 680px;
   height: auto;
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 19px;
   background: #091a35;
   touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  border-radius: 19px;
 }
 
 .gallery-track {
@@ -1182,10 +1191,11 @@ footer small {
     max-width: none;
     border-left: 0;
     border-right: 0;
+    border-radius: 19px;
   }
 
   .gallery-slide {
-    aspect-ratio: auto;
+    height: auto;
   }
 
   .gallery-dots {
@@ -1284,9 +1294,10 @@ footer small {
 
   .gallery-carousel {
     width: 100%;
-    max-width: 850px;
+    max-width: 680px;
     margin: 0 auto;
     border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 19px;
     background: #091a35;
     touch-action: pan-y;
     user-select: none;
@@ -1310,7 +1321,6 @@ footer small {
     flex: 0 0 100%;
     width: 100%;
     min-width: 100%;
-    aspect-ratio: auto;
     height: auto;
     overflow: hidden;
     position: relative;
