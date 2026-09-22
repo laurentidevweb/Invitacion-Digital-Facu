@@ -1,0 +1,703 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    background: #06101c;
+
+    color: white;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+#app {
+    width: 100%;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(80, 170, 225, 0.28) 0%,
+            rgba(25, 91, 145, 0.18) 22%,
+            transparent 48%
+        ),
+        radial-gradient(
+            circle at 15% 85%,
+            rgba(40, 130, 190, 0.16) 0%,
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 90% 70%,
+            rgba(100, 190, 235, 0.12) 0%,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #020914 0%,
+            #061a2d 35%,
+            #092b48 60%,
+            #03101e 100%
+        );
+}
+
+/* =========================================
+   LUCES AMBIENTALES
+========================================= */
+
+.hero-light {
+    position: absolute;
+
+    width: 55vw;
+    height: 55vw;
+
+    max-width: 750px;
+    max-height: 750px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(120px);
+
+    opacity: 0.11;
+
+    transition:
+        transform 1.5s ease-out;
+}
+
+.hero-light-one {
+    top: -35%;
+    left: -25%;
+
+    background: #9bdcff;
+}
+
+.hero-light-two {
+    right: -25%;
+    bottom: -35%;
+
+    background: #176aa3;
+}
+
+
+/* =========================================
+   TEXTURA
+========================================= */
+
+.hero-texture {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.18;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            rgba(190, 230, 255, 0.12),
+            transparent 45%
+        );
+
+    mix-blend-mode: screen;
+}
+
+/* =========================================
+   CONTENIDO
+========================================= */
+
+.hero-content {
+    position: relative;
+
+    z-index: 10;
+
+    width: min(90%, 900px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding:
+        55px
+        20px
+        105px;
+
+    animation:
+        heroEnter 1.2s
+        cubic-bezier(.16, 1, .3, 1)
+        forwards;
+}
+
+
+/* =========================================
+   FRASE SUPERIOR
+========================================= */
+
+.hero-eyebrow {
+    max-width: 600px;
+
+    margin-bottom: 18px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.32em;
+
+    line-height: 1.6;
+
+    color:
+        rgba(
+            225,
+            244,
+            255,
+            0.8
+        );
+}
+
+
+/* =========================================
+   18
+========================================= */
+
+.hero-number {
+    position: relative;
+
+    width: 100%;
+    height: 260px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    overflow: visible;
+
+    animation:
+        numberFloat 5s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================
+   NÚMERO
+========================================= */
+
+.hero-number-back,
+.hero-number-front {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    margin: 0;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        Arial,
+        sans-serif;
+
+    font-size: clamp(150px, 22vw, 270px);
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: 0;
+
+    white-space: nowrap;
+
+    transform: translate(-50%, -50%);
+}
+
+
+/* =========================================
+   CAPA TRASERA
+========================================= */
+
+.hero-number-back {
+
+    color: #1c638e;
+
+    transform:
+        translate(
+            calc(-50% + 7px),
+            calc(-50% + 9px)
+        );
+
+    opacity: 0.75;
+}
+
+
+/* =========================================
+   NÚMERO PRINCIPAL
+========================================= */
+
+.hero-number-front {
+
+    color: #e9f8ff;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #d9f3ff 45%,
+            #8ac9ed 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    filter:
+        drop-shadow(
+            0 8px 20px
+            rgba(0, 0, 0, 0.35)
+        );
+}
+
+
+/* =========================================
+   BRILLO
+========================================= */
+
+.hero-number-front::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+    top: 5%;
+
+    width: 70%;
+    height: 12%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.55),
+            transparent
+        );
+
+    filter: blur(10px);
+
+    opacity: 0.35;
+
+    animation:
+        numberLight 4s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================
+   NOMBRE
+========================================= */
+
+.hero-name {
+
+    margin-top: 34px;
+
+    font-size:
+        clamp(
+            40px,
+            7vw,
+            82px
+        );
+
+    font-weight: 800;
+
+    letter-spacing: 0.16em;
+
+    text-indent: 0.16em;
+
+    color: white;
+
+    text-shadow:
+        0 8px 30px
+        rgba(0,0,0,0.45);
+}
+
+
+/* =========================================
+   DIVISOR
+========================================= */
+
+.hero-divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: min(300px, 60%);
+
+    margin:
+        27px
+        0
+        18px;
+}
+
+
+.hero-divider-line {
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            rgba(200,235,255,0.75)
+        );
+}
+
+
+.hero-divider-line:last-child {
+
+    background:
+        linear-gradient(
+            to left,
+            transparent,
+            rgba(200,235,255,0.75)
+        );
+}
+
+
+.hero-divider-diamond {
+
+    width: 7px;
+    height: 7px;
+
+    background: #e0f5ff;
+
+    transform: rotate(45deg);
+
+    box-shadow:
+        0 0 15px
+        rgba(130,210,255,0.9);
+}
+
+
+/* =========================================
+   FECHA
+========================================= */
+
+.hero-date {
+
+    font-size:
+        clamp(
+            20px,
+            3vw,
+            28px
+        );
+
+    font-weight: 600;
+
+    letter-spacing: 0.22em;
+
+    color: #edfaff;
+}
+
+
+/* =========================================
+   SCROLL
+========================================= */
+
+.hero-scroll {
+
+    position: absolute;
+
+    bottom: 32px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.3em;
+
+    color:
+        rgba(
+            220,
+            240,
+            255,
+            0.65
+        );
+
+    animation:
+        scrollPulse 2s
+        ease-in-out
+        infinite;
+}
+
+
+.hero-scroll-line {
+
+    width: 1px;
+
+    height: 32px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(220,240,255,0.8),
+            transparent
+        );
+}
+
+
+/* =========================================
+   ANIMACIONES
+========================================= */
+
+@keyframes heroEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes numberFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px);
+    }
+}
+
+
+@keyframes numberLight {
+
+    0%,
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translateX(-35%);
+    }
+
+    45% {
+
+        opacity: 0.45;
+    }
+
+    70% {
+
+        opacity: 0;
+
+        transform:
+            translateX(35%);
+    }
+}
+
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+
+        opacity: 0.4;
+
+        transform:
+            translateY(0);
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            translateY(5px);
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .hero-content {
+
+        width: 94%;
+
+        padding:
+            35px
+            12px
+            100px;
+    }
+
+
+    .hero-eyebrow {
+
+        max-width: 330px;
+
+        margin-bottom: 22px;
+
+        font-size: 8px;
+
+        letter-spacing: 0.25em;
+    }
+
+
+    .hero-number {
+
+        width: 90vw;
+
+        height: 175px;
+    }
+
+
+    .hero-number-back,
+    .hero-number-front {
+
+        font-size: 48vw;
+    }
+
+
+    .hero-name {
+
+        margin-top: 30px;
+
+        font-size: 10.5vw;
+
+        letter-spacing: 0.12em;
+
+        text-indent: 0.12em;
+    }
+
+
+    .hero-divider {
+
+        width: 65%;
+
+        margin-top: 24px;
+    }
+
+
+    .hero-date {
+
+        font-size: 18px;
+
+        letter-spacing: 0.16em;
+    }
+
+
+    .hero-scroll {
+
+        bottom: 25px;
+    }
+}
+
+
+/* =========================================
+   PANTALLAS GRANDES
+========================================= */
+
+@media (min-width: 1400px) {
+
+    .hero-number {
+
+        width: 520px;
+
+        height: 285px;
+    }
+
+
+    .hero-number-back,
+    .hero-number-front {
+
+        font-size: 290px;
+    }
+
+
+    .hero-name {
+
+        font-size: 86px;
+    }
+}
