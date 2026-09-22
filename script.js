@@ -1,1294 +1,875 @@
 const CONFIG = {
-    eventDate: "2026-10-31T21:00:00-03:00",
-
-    mapsLink: "https://maps.app.goo.gl/5uuuT4VhBRKXMNh69",
-
-    whatsappLink: "https://wa.me/1234567890",
-
-    gallery: [
-        "foto1.jpg",
-        "foto2.jpg",
-        "foto3.jpg",
-        "foto4.jpg",
-        "foto5.jpg",
-        "foto6.jpg"
-    ]
+  eventDate: "2026-10-31T21:00:00-03:00",
+  mapsLink: "https://maps.app.goo.gl/5uuuT4VhBRKXMNh69",
+  whatsappLink: "https://wa.me/1234567890",
+  gallery: [
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg",
+    "foto4.jpg",
+    "foto5.jpg",
+    "foto6.jpg"
+  ]
 };
-
 
 const app = document.getElementById("app");
 
-
-/* =========================================================
-   COMENZAR SIEMPRE DESDE ARRIBA
-========================================================= */
-
 window.scrollTo(0, 0);
 
-
-/* =========================================================
+/* =========================
    PORTADA
-========================================================= */
+========================= */
 
 const cover = document.createElement("section");
 
 cover.className = "cover";
 
 cover.innerHTML = `
-    <div class="cover-background"></div>
+  <div class="cover-background"></div>
+  <div class="cover-flag"></div>
 
-    <div class="cover-flag"></div>
+  <div class="cover-spark spark-1"></div>
+  <div class="cover-spark spark-2"></div>
+  <div class="cover-spark spark-3"></div>
 
-    <div class="cover-spark spark-1"></div>
-    <div class="cover-spark spark-2"></div>
-    <div class="cover-spark spark-3"></div>
-
-    <div class="cover-content">
-
-        <div class="cover-stars">
-            <span>★</span>
-            <span>★</span>
-            <span>★</span>
-        </div>
-
-        <p class="cover-small">
-            MIS
-        </p>
-
-        <div class="cover-number">
-            18
-        </div>
-
-        <h1>
-            FACUNDO
-        </h1>
-
-        <div class="cover-date">
-            31 · 10 · 2026
-        </div>
-
-        <div class="cover-line"></div>
-
-        <p class="cover-bottom">
-            UNA NOCHE ESPECIAL
-        </p>
-
+  <div class="cover-content">
+    <div class="cover-stars">
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
     </div>
+
+    <p class="cover-small">MIS</p>
+
+    <div class="cover-number">18</div>
+
+    <h1>FACUNDO</h1>
+
+    <div class="cover-date">31 · 10 · 2026</div>
+
+    <div class="cover-line"></div>
+
+    <p class="cover-bottom">UNA NOCHE ESPECIAL</p>
+  </div>
 `;
 
 app.appendChild(cover);
 
-
-/* =========================================================
-   PÁGINA PRINCIPAL
-========================================================= */
+/* =========================
+   MAIN PAGE
+========================= */
 
 const mainPage = document.createElement("main");
 
 mainPage.className = "main-page";
-
 mainPage.style.opacity = "0";
 mainPage.style.pointerEvents = "none";
 
 app.appendChild(mainPage);
 
-
-/* =========================================================
-   DECORACIÓN DE FONDO
-========================================================= */
+/* =========================
+   BACKGROUND
+========================= */
 
 const backgroundGlow = document.createElement("div");
-
 backgroundGlow.className = "background-glow";
-
 mainPage.appendChild(backgroundGlow);
 
-
 const backgroundGlow2 = document.createElement("div");
-
 backgroundGlow2.className = "background-glow glow-two";
-
 mainPage.appendChild(backgroundGlow2);
 
-
 const backgroundSweep = document.createElement("div");
-
 backgroundSweep.className = "background-sweep";
-
 mainPage.appendChild(backgroundSweep);
 
-
 const diagonalLines = document.createElement("div");
-
 diagonalLines.className = "diagonal-lines";
-
 mainPage.appendChild(diagonalLines);
 
-
-/* =========================================================
-   BANDERAS
-========================================================= */
+/* =========================
+   ARGENTINA FLAGS
+========================= */
 
 const argentinaFlag = document.createElement("div");
 
 argentinaFlag.className = "argentina-flag";
 
 argentinaFlag.innerHTML = `
-    <div class="flag-sun"></div>
+  <div class="flag-sun"></div>
 `;
 
 mainPage.appendChild(argentinaFlag);
 
-
 const argentinaFlag2 = document.createElement("div");
 
-argentinaFlag2.className =
-    "argentina-flag flag-two";
+argentinaFlag2.className = "argentina-flag flag-two";
 
 argentinaFlag2.innerHTML = `
-    <div class="flag-sun"></div>
+  <div class="flag-sun"></div>
 `;
 
 mainPage.appendChild(argentinaFlag2);
 
-
-/* =========================================================
-   FÚTBOL
-========================================================= */
+/* =========================
+   FOOTBALL
+========================= */
 
 const football = document.createElement("div");
 
 football.className = "football-decor";
 
 football.innerHTML = `
-    <div class="football-center"></div>
-
-    <div class="football-line line-a"></div>
-    <div class="football-line line-b"></div>
-    <div class="football-line line-c"></div>
-    <div class="football-line line-d"></div>
+  <div class="football-center"></div>
+  <div class="football-line line-a"></div>
+  <div class="football-line line-b"></div>
+  <div class="football-line line-c"></div>
+  <div class="football-line line-d"></div>
 `;
 
 mainPage.appendChild(football);
 
+/* =========================
+   GOLD SPARKLES
+========================= */
 
-/* =========================================================
-   DESTELLOS
-========================================================= */
+const sparkleContainer = document.createElement("div");
 
-const sparkleContainer =
-    document.createElement("div");
-
-sparkleContainer.className =
-    "gold-sparkles";
+sparkleContainer.className = "gold-sparkles";
 
 for (let i = 1; i <= 8; i++) {
+  const sparkle = document.createElement("span");
 
-    const sparkle =
-        document.createElement("span");
+  sparkle.className = `gold-spark sparkle-${i}`;
 
-    sparkle.className =
-        `gold-spark sparkle-${i}`;
-
-    sparkleContainer.appendChild(sparkle);
+  sparkleContainer.appendChild(sparkle);
 }
 
 mainPage.appendChild(sparkleContainer);
 
-
-/* =========================================================
-   SEPARADORES
-========================================================= */
+/* =========================
+   SEPARATOR
+========================= */
 
 function createSectionSeparator() {
+  const separator = document.createElement("div");
 
-    const separator =
-        document.createElement("div");
+  separator.className = "section-separator";
 
-    separator.className =
-        "section-separator";
+  separator.innerHTML = `
+    <span class="separator-line"></span>
 
-    separator.innerHTML = `
-        <span class="separator-line"></span>
+    <div class="separator-stars">
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+    </div>
 
-        <div class="separator-stars">
-            <span>★</span>
-            <span>★</span>
-            <span>★</span>
-        </div>
+    <span class="separator-line"></span>
+  `;
 
-        <span class="separator-line"></span>
-    `;
-
-    return separator;
+  return separator;
 }
 
+/* =========================
+   WELCOME
+========================= */
 
-/* =========================================================
-   BIENVENIDA
-========================================================= */
+const welcome = document.createElement("section");
 
-const welcome =
-    document.createElement("section");
-
-welcome.className =
-    "welcome section";
+welcome.className = "welcome section";
 
 welcome.innerHTML = `
-    <div class="welcome-content">
+  <div class="welcome-content">
+    <div class="mini-badge">18 AÑOS</div>
 
-        <div class="mini-badge">
-            18 AÑOS
-        </div>
+    <h2>
+      UNA NOCHE<br>
+      <span>ESPECIAL</span>
+    </h2>
 
-        <h2>
-            UNA NOCHE<br>
-            <span>ESPECIAL</span>
-        </h2>
-
-        <p>
-            Hay momentos que merecen ser celebrados
-            y compartidos con quienes más queremos.
-        </p>
-
-    </div>
+    <p>
+      Hay momentos que merecen ser celebrados y compartidos
+      con quienes más queremos.
+    </p>
+  </div>
 `;
 
 mainPage.appendChild(welcome);
+mainPage.appendChild(createSectionSeparator());
 
-mainPage.appendChild(
-    createSectionSeparator()
-);
+/* =========================
+   COUNTDOWN
+========================= */
 
+const countdownSection = document.createElement("section");
 
-/* =========================================================
-   CUENTA REGRESIVA
-========================================================= */
-
-const countdownSection =
-    document.createElement("section");
-
-countdownSection.className =
-    "countdown-section section";
+countdownSection.className = "countdown-section section";
 
 countdownSection.innerHTML = `
-    <p class="section-kicker">
-        FALTA MUY POCO
-    </p>
+  <p class="section-kicker">FALTA MUY POCO</p>
 
-    <h2>
-        La cuenta regresiva
-    </h2>
+  <h2>La cuenta regresiva</h2>
 
-    <div class="countdown">
-
-        <div class="count-box">
-            <strong id="days">00</strong>
-            <span>DÍAS</span>
-        </div>
-
-        <div class="count-box">
-            <strong id="hours">00</strong>
-            <span>HORAS</span>
-        </div>
-
-        <div class="count-box">
-            <strong id="minutes">00</strong>
-            <span>MINUTOS</span>
-        </div>
-
-        <div class="count-box">
-            <strong id="seconds">00</strong>
-            <span>SEGUNDOS</span>
-        </div>
-
+  <div class="countdown">
+    <div class="count-box">
+      <strong id="days">00</strong>
+      <span>DÍAS</span>
     </div>
+
+    <div class="count-box">
+      <strong id="hours">00</strong>
+      <span>HORAS</span>
+    </div>
+
+    <div class="count-box">
+      <strong id="minutes">00</strong>
+      <span>MINUTOS</span>
+    </div>
+
+    <div class="count-box">
+      <strong id="seconds">00</strong>
+      <span>SEGUNDOS</span>
+    </div>
+  </div>
 `;
 
 mainPage.appendChild(countdownSection);
+mainPage.appendChild(createSectionSeparator());
 
-mainPage.appendChild(
-    createSectionSeparator()
-);
+/* =========================
+   EVENT
+========================= */
 
+const eventSection = document.createElement("section");
 
-/* =========================================================
-   DATOS DEL EVENTO
-========================================================= */
-
-const eventSection =
-    document.createElement("section");
-
-eventSection.className =
-    "event-section section";
+eventSection.className = "event-section section";
 
 eventSection.innerHTML = `
-    <p class="section-kicker">
-        TODO LISTO
-    </p>
+  <p class="section-kicker">TODO LISTO</p>
 
-    <h2>
-        Datos del evento
-    </h2>
+  <h2>Datos del evento</h2>
 
-    <div class="event-grid">
-
-        <div class="event-card">
-
-            <div class="event-label">
-                FECHA
-            </div>
-
-            <div class="event-value">
-                31 DE OCTUBRE
-            </div>
-
-        </div>
-
-
-        <div class="event-card">
-
-            <div class="event-label">
-                HORA
-            </div>
-
-            <div class="event-value">
-                21:00 HS
-            </div>
-
-        </div>
-
-
-        <div class="event-card">
-
-            <div class="event-label">
-                DRESS CODE
-            </div>
-
-            <div class="event-value">
-                ELEGANTE SPORT
-            </div>
-
-        </div>
-
+  <div class="event-grid">
+    <div class="event-card">
+      <div class="event-label">FECHA</div>
+      <div class="event-value">31 DE OCTUBRE</div>
     </div>
+
+    <div class="event-card">
+      <div class="event-label">HORA</div>
+      <div class="event-value">21:00 HS</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-label">DRESS CODE</div>
+      <div class="event-value">ELEGANTE SPORT</div>
+    </div>
+  </div>
 `;
 
 mainPage.appendChild(eventSection);
+mainPage.appendChild(createSectionSeparator());
 
-mainPage.appendChild(
-    createSectionSeparator()
-);
+/* =========================
+   LOCATION
+========================= */
 
+const locationSection = document.createElement("section");
 
-/* =========================================================
-   UBICACIÓN
-========================================================= */
-
-const locationSection =
-    document.createElement("section");
-
-locationSection.className =
-    "location-section section";
+locationSection.className = "location-section section";
 
 locationSection.innerHTML = `
-    <p class="section-kicker">
-        NOS ENCONTRAMOS EN
-    </p>
+  <p class="section-kicker">NOS ENCONTRAMOS EN</p>
 
-    <h2>
-        Quinta de los<br>
-        <span>Tres Hermanos</span>
-    </h2>
+  <h2>
+    Quinta de los<br>
+    <span>Tres Hermanos</span>
+  </h2>
 
-    <p class="location-text">
-        Prepará todo para una noche increíble.
-    </p>
+  <p class="location-text">
+    Prepará todo para una noche increíble.
+  </p>
 
-    <a
-        class="main-button location-button"
-        href="${CONFIG.mapsLink}"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        <span>VER UBICACIÓN</span>
-        <b>↗</b>
-    </a>
+  <a
+    class="main-button location-button"
+    href="${CONFIG.mapsLink}"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span>VER UBICACIÓN</span>
+    <b>↗</b>
+  </a>
 `;
 
 mainPage.appendChild(locationSection);
+mainPage.appendChild(createSectionSeparator());
 
-mainPage.appendChild(
-    createSectionSeparator()
-);
+/* =========================
+   GALLERY
+========================= */
 
+const gallerySection = document.createElement("section");
 
-/* =========================================================
-   GALERÍA
-========================================================= */
-
-const gallerySection =
-    document.createElement("section");
-
-gallerySection.className =
-    "gallery-section section";
+gallerySection.className = "gallery-section section";
 
 gallerySection.innerHTML = `
-    <p class="section-kicker">
-        MOMENTOS
-    </p>
+  <p class="section-kicker">MOMENTOS</p>
 
-    <h2>
-        Galería
-    </h2>
+  <h2>Galería</h2>
 
-    <div class="gallery-carousel">
-        <div class="gallery-track"></div>
-    </div>
+  <div
+    class="gallery-carousel"
+    role="region"
+    aria-label="Galería de fotos"
+    tabindex="0"
+  >
+    <div class="gallery-track"></div>
+  </div>
 
-    <div class="gallery-dots"></div>
+  <div class="gallery-dots"></div>
 `;
 
 mainPage.appendChild(gallerySection);
 
+const galleryCarousel = gallerySection.querySelector(".gallery-carousel");
+const galleryTrack = gallerySection.querySelector(".gallery-track");
+const galleryDots = gallerySection.querySelector(".gallery-dots");
 
-const galleryTrack =
-    gallerySection.querySelector(
-        ".gallery-track"
-    );
-
-const galleryDots =
-    gallerySection.querySelector(
-        ".gallery-dots"
-    );
-
-
-/* =========================================================
-   CREAR FOTOS Y PUNTITOS
-========================================================= */
+/* =========================
+   CREATE SLIDES
+========================= */
 
 CONFIG.gallery.forEach((photo, index) => {
+  const slide = document.createElement("div");
 
-    const slide =
-        document.createElement("div");
+  slide.className = "gallery-slide";
 
-    slide.className =
-        "gallery-slide";
+  slide.innerHTML = `
+    <img
+      src="${photo}"
+      alt="Foto ${index + 1}"
+      draggable="false"
+    >
+  `;
 
-    slide.innerHTML = `
-        <img
-            src="${photo}"
-            alt="Foto ${index + 1} de la galería"
-            draggable="false"
-        >
-    `;
+  galleryTrack.appendChild(slide);
 
-    galleryTrack.appendChild(slide);
+  const dot = document.createElement("button");
 
+  dot.type = "button";
+  dot.className = "gallery-dot";
 
-    const dot =
-        document.createElement("button");
+  if (index === 0) {
+    dot.classList.add("active");
+  }
 
-    dot.type = "button";
+  dot.setAttribute("aria-label", `Ver foto ${index + 1}`);
+  dot.setAttribute("aria-current", index === 0 ? "true" : "false");
 
-    dot.className =
-        `gallery-dot ${
-            index === 0 ? "active" : ""
-        }`;
-
-    dot.setAttribute(
-        "aria-label",
-        `Ver foto ${index + 1}`
-    );
-
-    galleryDots.appendChild(dot);
+  galleryDots.appendChild(dot);
 });
 
+/* =========================
+   CONFIRMATION
+========================= */
 
-mainPage.appendChild(
-    createSectionSeparator()
-);
-
-
-/* =========================================================
-   CONFIRMACIÓN
-========================================================= */
-
-const confirmationSection =
-    document.createElement("section");
+const confirmationSection = document.createElement("section");
 
 confirmationSection.className =
-    "confirmation-section section";
+  "confirmation-section section";
 
 confirmationSection.innerHTML = `
-    <div class="confirmation-stars">
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-    </div>
+  <div class="confirmation-stars">
+    <span>★</span>
+    <span>★</span>
+    <span>★</span>
+  </div>
 
-    <p class="section-kicker">
-        TE ESPERO
-    </p>
+  <p class="section-kicker">TE ESPERO</p>
 
-    <h2>
-        Los 18 se viven<br>
-        <span>una sola vez</span>
-    </h2>
+  <h2>
+    Los 18 se viven<br>
+    <span>una sola vez</span>
+  </h2>
 
-    <p>
-        Confirmá tu asistencia y preparate para
-        compartir esta noche conmigo.
-    </p>
+  <p>
+    Confirmá tu asistencia y preparate para compartir
+    esta noche conmigo.
+  </p>
 
-    <a
-        class="main-button whatsapp-button"
-        href="${CONFIG.whatsappLink}"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        <span>CONFIRMAR ASISTENCIA</span>
-        <b>↗</b>
-    </a>
+  <a
+    class="main-button whatsapp-button"
+    href="${CONFIG.whatsappLink}"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span>CONFIRMAR ASISTENCIA</span>
+    <b>↗</b>
+  </a>
 `;
 
-mainPage.appendChild(
-    confirmationSection
-);
+mainPage.appendChild(confirmationSection);
 
-
-/* =========================================================
+/* =========================
    FOOTER
-========================================================= */
+========================= */
 
-const footer =
-    document.createElement("footer");
+const footer = document.createElement("footer");
 
 footer.innerHTML = `
-    <div class="footer-stars">
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-    </div>
+  <div class="footer-stars">
+    <span>★</span>
+    <span>★</span>
+    <span>★</span>
+  </div>
 
-    <div class="footer-number">
-        18
-    </div>
+  <div class="footer-number">18</div>
 
-    <p>
-        FACUNDO · 2026
-    </p>
+  <p>FACUNDO · 2026</p>
 
-    <small>
-        Nos vemos en la fiesta.
-    </small>
+  <small>Nos vemos en la fiesta.</small>
 `;
 
 mainPage.appendChild(footer);
 
+/* =========================
+   COUNTDOWN
+========================= */
 
-/* =========================================================
-   CUENTA REGRESIVA
-========================================================= */
-
-const targetDate =
-    new Date(CONFIG.eventDate).getTime();
-
+const targetDate = new Date(CONFIG.eventDate).getTime();
 
 function updateCountdown() {
+  const now = Date.now();
+  const difference = targetDate - now;
 
-    const now = Date.now();
+  const daysElement = document.getElementById("days");
+  const hoursElement = document.getElementById("hours");
+  const minutesElement = document.getElementById("minutes");
+  const secondsElement = document.getElementById("seconds");
 
-    const difference =
-        targetDate - now;
+  if (difference <= 0) {
+    daysElement.textContent = "00";
+    hoursElement.textContent = "00";
+    minutesElement.textContent = "00";
+    secondsElement.textContent = "00";
+    return;
+  }
 
+  const days = Math.floor(
+    difference / (1000 * 60 * 60 * 24)
+  );
 
-    if (difference <= 0) {
+  const hours = Math.floor(
+    (difference / (1000 * 60 * 60)) % 24
+  );
 
-        document.getElementById("days").textContent =
-            "00";
+  const minutes = Math.floor(
+    (difference / (1000 * 60)) % 60
+  );
 
-        document.getElementById("hours").textContent =
-            "00";
+  const seconds = Math.floor(
+    (difference / 1000) % 60
+  );
 
-        document.getElementById("minutes").textContent =
-            "00";
+  daysElement.textContent =
+    String(days).padStart(2, "0");
 
-        document.getElementById("seconds").textContent =
-            "00";
+  hoursElement.textContent =
+    String(hours).padStart(2, "0");
 
-        return;
-    }
+  minutesElement.textContent =
+    String(minutes).padStart(2, "0");
 
-
-    const days =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
-
-
-    const hours =
-        Math.floor(
-            (difference /
-                (1000 * 60 * 60)) % 24
-        );
-
-
-    const minutes =
-        Math.floor(
-            (difference /
-                (1000 * 60)) % 60
-        );
-
-
-    const seconds =
-        Math.floor(
-            (difference / 1000) % 60
-        );
-
-
-    document.getElementById("days").textContent =
-        String(days).padStart(2, "0");
-
-    document.getElementById("hours").textContent =
-        String(hours).padStart(2, "0");
-
-    document.getElementById("minutes").textContent =
-        String(minutes).padStart(2, "0");
-
-    document.getElementById("seconds").textContent =
-        String(seconds).padStart(2, "0");
+  secondsElement.textContent =
+    String(seconds).padStart(2, "0");
 }
-
 
 updateCountdown();
 
-setInterval(
-    updateCountdown,
-    1000
-);
+setInterval(updateCountdown, 1000);
 
-
-/* =========================================================
-   CARRUSEL
-========================================================= */
+/* =========================
+   GALLERY CAROUSEL
+========================= */
 
 const gallerySlides =
-    gallerySection.querySelectorAll(
-        ".gallery-slide"
-    );
+  gallerySection.querySelectorAll(".gallery-slide");
 
 const galleryDotButtons =
-    gallerySection.querySelectorAll(
-        ".gallery-dot"
-    );
-
+  gallerySection.querySelectorAll(".gallery-dot");
 
 let currentGalleryIndex = 0;
-
 let galleryAutoPlay = null;
 
+let pointerId = null;
+let dragStartX = 0;
+let dragStartY = 0;
+let dragCurrentX = 0;
 
-/* =========================================================
-   VARIABLES DE ARRASTRE
-========================================================= */
+let isDraggingGallery = false;
+let horizontalGesture = false;
 
-let galleryPointerId = null;
+/* =========================
+   SHOW SLIDE
+========================= */
 
-let galleryStartX = 0;
+function showGallerySlide(index, animate = true) {
+  if (!gallerySlides.length) {
+    return;
+  }
 
-let galleryStartY = 0;
+  const totalSlides = gallerySlides.length;
 
-let galleryCurrentX = 0;
+  if (index < 0) {
+    index = totalSlides - 1;
+  }
 
-let galleryIsDragging = false;
+  if (index >= totalSlides) {
+    index = 0;
+  }
 
-let galleryHorizontalGesture = false;
+  currentGalleryIndex = index;
 
-let galleryMoved = false;
+  galleryTrack.style.transition = animate
+    ? "transform 0.45s cubic-bezier(0.22,1,0.36,1)"
+    : "none";
 
+  galleryTrack.style.transform =
+    `translate3d(-${index * 100}%, 0, 0)`;
 
-/* =========================================================
-   MOSTRAR FOTO
-========================================================= */
+  galleryDotButtons.forEach((dot, dotIndex) => {
+    const isActive = dotIndex === index;
 
-function showGallerySlide(
-    index,
-    animate = true
-) {
+    dot.classList.toggle("active", isActive);
 
-    if (!gallerySlides.length) {
-        return;
-    }
-
-
-    if (index < 0) {
-        index =
-            gallerySlides.length - 1;
-    }
-
-
-    if (index >= gallerySlides.length) {
-        index = 0;
-    }
-
-
-    currentGalleryIndex = index;
-
-
-    galleryTrack.style.transition =
-        animate
-            ? "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)"
-            : "none";
-
-
-    galleryTrack.style.transform =
-        `translate3d(-${index * 100}%, 0, 0)`;
-
-
-    galleryDotButtons.forEach(
-        (dot, dotIndex) => {
-
-            dot.classList.toggle(
-                "active",
-                dotIndex === index
-            );
-
-        }
+    dot.setAttribute(
+      "aria-current",
+      isActive ? "true" : "false"
     );
+  });
 }
-
-
-/* =========================================================
-   SIGUIENTE / ANTERIOR
-========================================================= */
 
 function nextGallerySlide() {
-
-    showGallerySlide(
-        currentGalleryIndex + 1
-    );
+  showGallerySlide(currentGalleryIndex + 1);
 }
-
 
 function previousGallerySlide() {
-
-    showGallerySlide(
-        currentGalleryIndex - 1
-    );
+  showGallerySlide(currentGalleryIndex - 1);
 }
 
-
-/* =========================================================
+/* =========================
    AUTOPLAY
-========================================================= */
+========================= */
+
+function stopGalleryAutoPlay() {
+  if (galleryAutoPlay !== null) {
+    clearInterval(galleryAutoPlay);
+    galleryAutoPlay = null;
+  }
+}
 
 function startGalleryAutoPlay() {
+  stopGalleryAutoPlay();
 
-    clearInterval(
-        galleryAutoPlay
-    );
-
-
-    galleryAutoPlay =
-        setInterval(() => {
-
-            nextGallerySlide();
-
-        }, 4500);
+  galleryAutoPlay = setInterval(() => {
+    nextGallerySlide();
+  }, 4500);
 }
-
 
 function resetGalleryAutoPlay() {
-
-    clearInterval(
-        galleryAutoPlay
-    );
-
-    startGalleryAutoPlay();
+  startGalleryAutoPlay();
 }
 
+/* =========================
+   DOTS
+========================= */
 
-/* =========================================================
-   PUNTITOS
-========================================================= */
+galleryDotButtons.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    showGallerySlide(index);
+    resetGalleryAutoPlay();
+  });
+});
 
-galleryDotButtons.forEach(
-    (dot, index) => {
+/* =========================
+   POINTER DOWN
+========================= */
 
-        dot.addEventListener(
-            "click",
-            () => {
+galleryCarousel.addEventListener("pointerdown", (event) => {
+  if (event.pointerType === "mouse" && event.button !== 0) {
+    return;
+  }
 
-                showGallerySlide(
-                    index,
-                    true
-                );
+  pointerId = event.pointerId;
 
-                resetGalleryAutoPlay();
+  dragStartX = event.clientX;
+  dragStartY = event.clientY;
+  dragCurrentX = event.clientX;
 
-            }
-        );
+  isDraggingGallery = true;
+  horizontalGesture = false;
 
-    }
-);
+  stopGalleryAutoPlay();
 
+  galleryTrack.style.transition = "none";
 
-/* =========================================================
-   SWIPE / ARRASTRE
-   POINTER EVENTS
-========================================================= */
+  try {
+    galleryCarousel.setPointerCapture(pointerId);
+  } catch (error) {
+    /* Algunos navegadores pueden no soportarlo */
+  }
+});
 
-galleryTrack.addEventListener(
-    "pointerdown",
-    event => {
+/* =========================
+   POINTER MOVE
+========================= */
 
-        if (
-            event.pointerType === "mouse" &&
-            event.button !== 0
-        ) {
-            return;
-        }
+galleryCarousel.addEventListener("pointermove", (event) => {
+  if (!isDraggingGallery) {
+    return;
+  }
 
+  if (
+    pointerId !== null &&
+    event.pointerId !== pointerId
+  ) {
+    return;
+  }
 
-        galleryPointerId =
-            event.pointerId;
+  dragCurrentX = event.clientX;
 
-        galleryStartX =
-            event.clientX;
+  const deltaX = dragCurrentX - dragStartX;
+  const deltaY = event.clientY - dragStartY;
 
-        galleryStartY =
-            event.clientY;
+  if (!horizontalGesture) {
+    const movementX = Math.abs(deltaX);
+    const movementY = Math.abs(deltaY);
 
-        galleryCurrentX =
-            event.clientX;
-
-        galleryIsDragging = true;
-
-        galleryHorizontalGesture =
-            false;
-
-        galleryMoved = false;
-
-
-        clearInterval(
-            galleryAutoPlay
-        );
-
-
+    if (movementX > 10 || movementY > 10) {
+      if (movementX > movementY) {
+        horizontalGesture = true;
+      } else {
+        isDraggingGallery = false;
         galleryTrack.style.transition =
-            "none";
-
-
-        galleryTrack.setPointerCapture(
-            event.pointerId
-        );
-
-    }
-);
-
-
-galleryTrack.addEventListener(
-    "pointermove",
-    event => {
-
-        if (
-            !galleryIsDragging ||
-            event.pointerId !== galleryPointerId
-        ) {
-            return;
-        }
-
-
-        galleryCurrentX =
-            event.clientX;
-
-
-        const deltaX =
-            galleryCurrentX -
-            galleryStartX;
-
-
-        const deltaY =
-            event.clientY -
-            galleryStartY;
-
-
-        if (
-            Math.abs(deltaX) > 8 &&
-            Math.abs(deltaX) >
-            Math.abs(deltaY)
-        ) {
-
-            galleryHorizontalGesture =
-                true;
-
-        }
-
-
-        if (
-            !galleryHorizontalGesture
-        ) {
-            return;
-        }
-
-
-        galleryMoved = true;
-
-
-        const carouselWidth =
-            gallerySection
-                .querySelector(
-                    ".gallery-carousel"
-                )
-                .offsetWidth;
-
-
-        if (!carouselWidth) {
-            return;
-        }
-
-
-        const percentage =
-            (deltaX /
-                carouselWidth) *
-            100;
-
+          "transform 0.45s cubic-bezier(0.22,1,0.36,1)";
 
         galleryTrack.style.transform =
-            `translate3d(calc(-${
-                currentGalleryIndex * 100
-            }% + ${percentage}%), 0, 0)`;
-
-    }
-);
-
-
-function finishGalleryDrag() {
-
-    if (!galleryIsDragging) {
-        return;
-    }
-
-
-    const deltaX =
-        galleryCurrentX -
-        galleryStartX;
-
-
-    const minimumSwipe = 45;
-
-
-    galleryIsDragging = false;
-
-
-    if (
-        !galleryHorizontalGesture ||
-        Math.abs(deltaX) <
-        minimumSwipe
-    ) {
-
-        showGallerySlide(
-            currentGalleryIndex,
-            true
-        );
+          `translate3d(-${currentGalleryIndex * 100}%, 0, 0)`;
 
         startGalleryAutoPlay();
-
-        galleryHorizontalGesture =
-            false;
-
-        galleryMoved = false;
-
-        galleryPointerId = null;
-
         return;
+      }
     }
+  }
 
+  if (!horizontalGesture) {
+    return;
+  }
 
+  const carouselWidth =
+    galleryCarousel.getBoundingClientRect().width;
+
+  if (!carouselWidth) {
+    return;
+  }
+
+  const percentage =
+    (deltaX / carouselWidth) * 100;
+
+  galleryTrack.style.transform =
+    `translate3d(calc(-${currentGalleryIndex * 100}% + ${percentage}%), 0, 0)`;
+});
+
+/* =========================
+   FIN DEL DRAG
+========================= */
+
+function finishGalleryPointer(event) {
+  if (!isDraggingGallery) {
+    return;
+  }
+
+  if (
+    pointerId !== null &&
+    event.pointerId !== pointerId
+  ) {
+    return;
+  }
+
+  const deltaX = dragCurrentX - dragStartX;
+  const minimumSwipe = 45;
+
+  isDraggingGallery = false;
+
+  if (
+    pointerId !== null &&
+    galleryCarousel.hasPointerCapture(pointerId)
+  ) {
+    try {
+      galleryCarousel.releasePointerCapture(pointerId);
+    } catch (error) {
+      /* Sin acción */
+    }
+  }
+
+  pointerId = null;
+
+  if (
+    horizontalGesture &&
+    Math.abs(deltaX) >= minimumSwipe
+  ) {
     if (deltaX < 0) {
-
-        nextGallerySlide();
-
+      nextGallerySlide();
     } else {
-
-        previousGallerySlide();
-
+      previousGallerySlide();
     }
+  } else {
+    showGallerySlide(currentGalleryIndex, true);
+  }
 
+  horizontalGesture = false;
 
-    resetGalleryAutoPlay();
-
-
-    galleryHorizontalGesture =
-        false;
-
-    galleryMoved = false;
-
-    galleryPointerId = null;
+  resetGalleryAutoPlay();
 }
 
-
-galleryTrack.addEventListener(
-    "pointerup",
-    event => {
-
-        if (
-            event.pointerId !==
-            galleryPointerId
-        ) {
-            return;
-        }
-
-        finishGalleryDrag();
-
-    }
+galleryCarousel.addEventListener(
+  "pointerup",
+  finishGalleryPointer
 );
 
-
-galleryTrack.addEventListener(
-    "pointercancel",
-    event => {
-
-        if (
-            event.pointerId !==
-            galleryPointerId
-        ) {
-            return;
-        }
-
-        showGallerySlide(
-            currentGalleryIndex,
-            true
-        );
-
-        galleryIsDragging = false;
-
-        galleryHorizontalGesture =
-            false;
-
-        galleryMoved = false;
-
-        galleryPointerId = null;
-
-        startGalleryAutoPlay();
-
-    }
+galleryCarousel.addEventListener(
+  "pointercancel",
+  finishGalleryPointer
 );
 
+/* =========================
+   SALIDA DEL PUNTERO
+========================= */
 
-/* =========================================================
-   EVITAR DRAG NATIVO DE IMÁGENES
-========================================================= */
+galleryCarousel.addEventListener("pointerleave", (event) => {
+  if (
+    event.pointerType === "mouse" &&
+    isDraggingGallery
+  ) {
+    finishGalleryPointer(event);
+  }
+});
 
-galleryTrack.addEventListener(
-    "dragstart",
-    event => {
+/* =========================
+   TECLADO
+========================= */
 
-        event.preventDefault();
+galleryCarousel.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    nextGallerySlide();
+    resetGalleryAutoPlay();
+  }
 
-    }
-);
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    previousGallerySlide();
+    resetGalleryAutoPlay();
+  }
+});
 
+/* =========================
+   POSICIÓN INICIAL
+========================= */
 
-/* =========================================================
-   INICIO DEL CARRUSEL
-========================================================= */
+showGallerySlide(0, false);
 
-showGallerySlide(
-    0,
-    false
-);
-
-
-/* =========================================================
-   ANIMACIÓN DE ENTRADA
-========================================================= */
+/* =========================
+   ENTRY ANIMATION
+========================= */
 
 const welcomeElement =
-    mainPage.querySelector(
-        ".welcome"
-    );
+  mainPage.querySelector(".welcome");
 
 const countdownElement =
-    mainPage.querySelector(
-        ".countdown-section"
-    );
+  mainPage.querySelector(".countdown-section");
 
 const eventElement =
-    mainPage.querySelector(
-        ".event-section"
-    );
+  mainPage.querySelector(".event-section");
 
 const locationElement =
-    mainPage.querySelector(
-        ".location-section"
-    );
+  mainPage.querySelector(".location-section");
 
 const galleryElement =
-    mainPage.querySelector(
-        ".gallery-section"
-    );
+  mainPage.querySelector(".gallery-section");
 
 const confirmationElement =
-    mainPage.querySelector(
-        ".confirmation-section"
-    );
+  mainPage.querySelector(".confirmation-section");
 
 const eventCards =
-    mainPage.querySelectorAll(
-        ".event-card"
-    );
-
+  mainPage.querySelectorAll(".event-card");
 
 const animatedContent = [
-    welcomeElement,
-    countdownElement,
-    eventElement,
-    locationElement,
-    galleryElement,
-    confirmationElement
+  welcomeElement,
+  countdownElement,
+  eventElement,
+  locationElement,
+  galleryElement,
+  confirmationElement
 ];
 
+animatedContent.forEach((element) => {
+  element.classList.add("page-entry");
+});
 
-animatedContent.forEach(
-    element => {
+eventCards.forEach((card) => {
+  card.classList.add("page-entry");
+});
 
-        element.classList.add(
-            "page-entry"
-        );
-
-    }
-);
-
-
-eventCards.forEach(
-    card => {
-
-        card.classList.add(
-            "page-entry"
-        );
-
-    }
-);
-
-
-/* =========================================================
-   TRANSICIÓN DESPUÉS DE 3 SEGUNDOS
-========================================================= */
+/* =========================
+   MOSTRAR PÁGINA
+========================= */
 
 setTimeout(() => {
+  window.scrollTo(0, 0);
 
-    window.scrollTo(0, 0);
+  cover.style.transition =
+    "opacity 0.25s ease-out, transform 0.25s ease-out";
 
+  cover.style.opacity = "0";
+  cover.style.transform = "scale(1.01)";
 
-    cover.style.transition =
-        "opacity 0.25s ease-out, transform 0.25s ease-out";
+  mainPage.style.opacity = "1";
+  mainPage.style.pointerEvents = "auto";
 
-    cover.style.opacity = "0";
+  setTimeout(() => {
+    welcomeElement.classList.add("entry-visible");
+  }, 100);
 
-    cover.style.transform =
-        "scale(1.01)";
+  setTimeout(() => {
+    countdownElement.classList.add("entry-visible");
+  }, 400);
 
+  setTimeout(() => {
+    eventElement.classList.add("entry-visible");
+  }, 700);
 
-    mainPage.style.opacity = "1";
-
-    mainPage.style.pointerEvents =
-        "auto";
-
-
-    /* BIENVENIDA */
-
+  eventCards.forEach((card, index) => {
     setTimeout(() => {
+      card.classList.add("entry-visible");
+    }, 900 + index * 180);
+  });
 
-        welcomeElement.classList.add(
-            "entry-visible"
-        );
+  setTimeout(() => {
+    locationElement.classList.add("entry-visible");
+  }, 1450);
 
-    }, 100);
+  setTimeout(() => {
+    galleryElement.classList.add("entry-visible");
+    resetGalleryAutoPlay();
+  }, 1750);
 
+  setTimeout(() => {
+    confirmationElement.classList.add("entry-visible");
+  }, 2750);
 
-    /* CUENTA REGRESIVA */
-
-    setTimeout(() => {
-
-        countdownElement.classList.add(
-            "entry-visible"
-        );
-
-    }, 400);
-
-
-    /* DATOS */
-
-    setTimeout(() => {
-
-        eventElement.classList.add(
-            "entry-visible"
-        );
-
-    }, 700);
-
-
-    /* TARJETAS */
-
-    eventCards.forEach(
-        (card, index) => {
-
-            setTimeout(() => {
-
-                card.classList.add(
-                    "entry-visible"
-                );
-
-            }, 900 + index * 180);
-
-        }
-    );
-
-
-    /* UBICACIÓN */
-
-    setTimeout(() => {
-
-        locationElement.classList.add(
-            "entry-visible"
-        );
-
-    }, 1450);
-
-
-    /* GALERÍA */
-
-    setTimeout(() => {
-
-        galleryElement.classList.add(
-            "entry-visible"
-        );
-
-        resetGalleryAutoPlay();
-
-    }, 1750);
-
-
-    /* CONFIRMACIÓN */
-
-    setTimeout(() => {
-
-        confirmationElement.classList.add(
-            "entry-visible"
-        );
-
-    }, 2750);
-
-
-    /* ELIMINAR PORTADA */
-
-    setTimeout(() => {
-
-        cover.remove();
-
-    }, 300);
-
+  setTimeout(() => {
+    cover.remove();
+  }, 300);
 }, 3000);
