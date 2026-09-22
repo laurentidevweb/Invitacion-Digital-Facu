@@ -273,6 +273,22 @@ a {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+  background: #06142d;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================
+   IMAGEN DE FONDO
+========================= */
+
+.main-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
   background-image:
     linear-gradient(
       180deg,
@@ -281,12 +297,11 @@ a {
       rgba(2, 10, 27, 0.82) 100%
     ),
     url("fondo.jpg");
+
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: scroll;
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* =========================
@@ -297,7 +312,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   background:
     radial-gradient(
@@ -505,7 +520,7 @@ a {
     22% 100%,
     5% 35%
   );
-  border: 1px solid rgba(255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .football-line {
@@ -1165,10 +1180,9 @@ footer small {
 ========================= */
 
 @media (max-width: 700px) {
-  .main-page {
-    background-attachment: scroll;
-    background-size: 100% auto;
-    background-position: center top;
+  .main-page::after {
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 
@@ -1272,9 +1286,9 @@ footer small {
 }
 
 @media (max-width: 430px) {
-  .main-page {
-    background-size: 100% auto;
-    background-position: center top;
+  .main-page::after {
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 
