@@ -51,11 +51,17 @@ cover.innerHTML = `
             <span>★</span>
         </div>
 
-        <p class="cover-small">MIS</p>
+        <p class="cover-small">
+            MIS
+        </p>
 
-        <div class="cover-number">18</div>
+        <div class="cover-number">
+            18
+        </div>
 
-        <h1>FACUNDO</h1>
+        <h1>
+            FACUNDO
+        </h1>
 
         <div class="cover-date">
             31 · 10 · 2026
@@ -136,7 +142,8 @@ mainPage.appendChild(argentinaFlag);
 
 const argentinaFlag2 = document.createElement("div");
 
-argentinaFlag2.className = "argentina-flag flag-two";
+argentinaFlag2.className =
+    "argentina-flag flag-two";
 
 argentinaFlag2.innerHTML = `
     <div class="flag-sun"></div>
@@ -169,15 +176,19 @@ mainPage.appendChild(football);
    DESTELLOS
 ========================================================= */
 
-const sparkleContainer = document.createElement("div");
+const sparkleContainer =
+    document.createElement("div");
 
-sparkleContainer.className = "gold-sparkles";
+sparkleContainer.className =
+    "gold-sparkles";
 
 for (let i = 1; i <= 8; i++) {
 
-    const sparkle = document.createElement("span");
+    const sparkle =
+        document.createElement("span");
 
-    sparkle.className = `gold-spark sparkle-${i}`;
+    sparkle.className =
+        `gold-spark sparkle-${i}`;
 
     sparkleContainer.appendChild(sparkle);
 }
@@ -191,9 +202,11 @@ mainPage.appendChild(sparkleContainer);
 
 function createSectionSeparator() {
 
-    const separator = document.createElement("div");
+    const separator =
+        document.createElement("div");
 
-    separator.className = "section-separator";
+    separator.className =
+        "section-separator";
 
     separator.innerHTML = `
         <span class="separator-line"></span>
@@ -215,9 +228,11 @@ function createSectionSeparator() {
    BIENVENIDA
 ========================================================= */
 
-const welcome = document.createElement("section");
+const welcome =
+    document.createElement("section");
 
-welcome.className = "welcome section";
+welcome.className =
+    "welcome section";
 
 welcome.innerHTML = `
     <div class="welcome-content">
@@ -241,16 +256,20 @@ welcome.innerHTML = `
 
 mainPage.appendChild(welcome);
 
-mainPage.appendChild(createSectionSeparator());
+mainPage.appendChild(
+    createSectionSeparator()
+);
 
 
 /* =========================================================
    CUENTA REGRESIVA
 ========================================================= */
 
-const countdownSection = document.createElement("section");
+const countdownSection =
+    document.createElement("section");
 
-countdownSection.className = "countdown-section section";
+countdownSection.className =
+    "countdown-section section";
 
 countdownSection.innerHTML = `
     <p class="section-kicker">
@@ -288,16 +307,20 @@ countdownSection.innerHTML = `
 
 mainPage.appendChild(countdownSection);
 
-mainPage.appendChild(createSectionSeparator());
+mainPage.appendChild(
+    createSectionSeparator()
+);
 
 
 /* =========================================================
    DATOS DEL EVENTO
 ========================================================= */
 
-const eventSection = document.createElement("section");
+const eventSection =
+    document.createElement("section");
 
-eventSection.className = "event-section section";
+eventSection.className =
+    "event-section section";
 
 eventSection.innerHTML = `
     <p class="section-kicker">
@@ -322,6 +345,7 @@ eventSection.innerHTML = `
 
         </div>
 
+
         <div class="event-card">
 
             <div class="event-label">
@@ -333,6 +357,7 @@ eventSection.innerHTML = `
             </div>
 
         </div>
+
 
         <div class="event-card">
 
@@ -351,16 +376,20 @@ eventSection.innerHTML = `
 
 mainPage.appendChild(eventSection);
 
-mainPage.appendChild(createSectionSeparator());
+mainPage.appendChild(
+    createSectionSeparator()
+);
 
 
 /* =========================================================
    UBICACIÓN
 ========================================================= */
 
-const locationSection = document.createElement("section");
+const locationSection =
+    document.createElement("section");
 
-locationSection.className = "location-section section";
+locationSection.className =
+    "location-section section";
 
 locationSection.innerHTML = `
     <p class="section-kicker">
@@ -389,16 +418,20 @@ locationSection.innerHTML = `
 
 mainPage.appendChild(locationSection);
 
-mainPage.appendChild(createSectionSeparator());
+mainPage.appendChild(
+    createSectionSeparator()
+);
 
 
 /* =========================================================
    GALERÍA
 ========================================================= */
 
-const gallerySection = document.createElement("section");
+const gallerySection =
+    document.createElement("section");
 
-gallerySection.className = "gallery-section section";
+gallerySection.className =
+    "gallery-section section";
 
 gallerySection.innerHTML = `
     <p class="section-kicker">
@@ -410,9 +443,7 @@ gallerySection.innerHTML = `
     </h2>
 
     <div class="gallery-carousel">
-
         <div class="gallery-track"></div>
-
     </div>
 
     <div class="gallery-dots"></div>
@@ -422,10 +453,14 @@ mainPage.appendChild(gallerySection);
 
 
 const galleryTrack =
-    gallerySection.querySelector(".gallery-track");
+    gallerySection.querySelector(
+        ".gallery-track"
+    );
 
 const galleryDots =
-    gallerySection.querySelector(".gallery-dots");
+    gallerySection.querySelector(
+        ".gallery-dots"
+    );
 
 
 /* =========================================================
@@ -434,14 +469,16 @@ const galleryDots =
 
 CONFIG.gallery.forEach((photo, index) => {
 
-    const slide = document.createElement("div");
+    const slide =
+        document.createElement("div");
 
-    slide.className = "gallery-slide";
+    slide.className =
+        "gallery-slide";
 
     slide.innerHTML = `
         <img
             src="${photo}"
-            alt=""
+            alt="Foto ${index + 1} de la galería"
             draggable="false"
         >
     `;
@@ -449,12 +486,15 @@ CONFIG.gallery.forEach((photo, index) => {
     galleryTrack.appendChild(slide);
 
 
-    const dot = document.createElement("button");
+    const dot =
+        document.createElement("button");
 
     dot.type = "button";
 
     dot.className =
-        `gallery-dot ${index === 0 ? "active" : ""}`;
+        `gallery-dot ${
+            index === 0 ? "active" : ""
+        }`;
 
     dot.setAttribute(
         "aria-label",
@@ -465,7 +505,9 @@ CONFIG.gallery.forEach((photo, index) => {
 });
 
 
-mainPage.appendChild(createSectionSeparator());
+mainPage.appendChild(
+    createSectionSeparator()
+);
 
 
 /* =========================================================
@@ -480,11 +522,9 @@ confirmationSection.className =
 
 confirmationSection.innerHTML = `
     <div class="confirmation-stars">
-
         <span>★</span>
         <span>★</span>
         <span>★</span>
-
     </div>
 
     <p class="section-kicker">
@@ -512,22 +552,23 @@ confirmationSection.innerHTML = `
     </a>
 `;
 
-mainPage.appendChild(confirmationSection);
+mainPage.appendChild(
+    confirmationSection
+);
 
 
 /* =========================================================
    FOOTER
 ========================================================= */
 
-const footer = document.createElement("footer");
+const footer =
+    document.createElement("footer");
 
 footer.innerHTML = `
     <div class="footer-stars">
-
         <span>★</span>
         <span>★</span>
         <span>★</span>
-
     </div>
 
     <div class="footer-number">
@@ -564,10 +605,17 @@ function updateCountdown() {
 
     if (difference <= 0) {
 
-        document.getElementById("days").textContent = "00";
-        document.getElementById("hours").textContent = "00";
-        document.getElementById("minutes").textContent = "00";
-        document.getElementById("seconds").textContent = "00";
+        document.getElementById("days").textContent =
+            "00";
+
+        document.getElementById("hours").textContent =
+            "00";
+
+        document.getElementById("minutes").textContent =
+            "00";
+
+        document.getElementById("seconds").textContent =
+            "00";
 
         return;
     }
@@ -616,7 +664,10 @@ function updateCountdown() {
 
 updateCountdown();
 
-setInterval(updateCountdown, 1000);
+setInterval(
+    updateCountdown,
+    1000
+);
 
 
 /* =========================================================
@@ -624,28 +675,48 @@ setInterval(updateCountdown, 1000);
 ========================================================= */
 
 const gallerySlides =
-    gallerySection.querySelectorAll(".gallery-slide");
+    gallerySection.querySelectorAll(
+        ".gallery-slide"
+    );
 
 const galleryDotButtons =
-    gallerySection.querySelectorAll(".gallery-dot");
+    gallerySection.querySelectorAll(
+        ".gallery-dot"
+    );
 
 
 let currentGalleryIndex = 0;
 
 let galleryAutoPlay = null;
 
-let touchStartX = 0;
 
-let touchStartY = 0;
+/* =========================================================
+   VARIABLES DE ARRASTRE
+========================================================= */
 
-let isSwiping = false;
+let galleryPointerId = null;
+
+let galleryStartX = 0;
+
+let galleryStartY = 0;
+
+let galleryCurrentX = 0;
+
+let galleryIsDragging = false;
+
+let galleryHorizontalGesture = false;
+
+let galleryMoved = false;
 
 
 /* =========================================================
    MOSTRAR FOTO
 ========================================================= */
 
-function showGallerySlide(index, animate = true) {
+function showGallerySlide(
+    index,
+    animate = true
+) {
 
     if (!gallerySlides.length) {
         return;
@@ -653,7 +724,8 @@ function showGallerySlide(index, animate = true) {
 
 
     if (index < 0) {
-        index = gallerySlides.length - 1;
+        index =
+            gallerySlides.length - 1;
     }
 
 
@@ -667,7 +739,7 @@ function showGallerySlide(index, animate = true) {
 
     galleryTrack.style.transition =
         animate
-            ? "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
+            ? "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)"
             : "none";
 
 
@@ -675,14 +747,16 @@ function showGallerySlide(index, animate = true) {
         `translate3d(-${index * 100}%, 0, 0)`;
 
 
-    galleryDotButtons.forEach((dot, dotIndex) => {
+    galleryDotButtons.forEach(
+        (dot, dotIndex) => {
 
-        dot.classList.toggle(
-            "active",
-            dotIndex === index
-        );
+            dot.classList.toggle(
+                "active",
+                dotIndex === index
+            );
 
-    });
+        }
+    );
 }
 
 
@@ -712,20 +786,25 @@ function previousGallerySlide() {
 
 function startGalleryAutoPlay() {
 
-    clearInterval(galleryAutoPlay);
+    clearInterval(
+        galleryAutoPlay
+    );
 
 
-    galleryAutoPlay = setInterval(() => {
+    galleryAutoPlay =
+        setInterval(() => {
 
-        nextGallerySlide();
+            nextGallerySlide();
 
-    }, 4500);
+        }, 4500);
 }
 
 
 function resetGalleryAutoPlay() {
 
-    clearInterval(galleryAutoPlay);
+    clearInterval(
+        galleryAutoPlay
+    );
 
     startGalleryAutoPlay();
 }
@@ -735,110 +814,281 @@ function resetGalleryAutoPlay() {
    PUNTITOS
 ========================================================= */
 
-galleryDotButtons.forEach((dot, index) => {
+galleryDotButtons.forEach(
+    (dot, index) => {
 
-    dot.addEventListener("click", () => {
+        dot.addEventListener(
+            "click",
+            () => {
 
-        showGallerySlide(index);
+                showGallerySlide(
+                    index,
+                    true
+                );
 
-        resetGalleryAutoPlay();
+                resetGalleryAutoPlay();
 
-    });
+            }
+        );
 
-});
+    }
+);
 
 
 /* =========================================================
-   SWIPE
+   SWIPE / ARRASTRE
+   POINTER EVENTS
 ========================================================= */
 
 galleryTrack.addEventListener(
-    "touchstart",
+    "pointerdown",
     event => {
-
-        const touch =
-            event.changedTouches[0];
-
-        touchStartX = touch.clientX;
-
-        touchStartY = touch.clientY;
-
-        isSwiping = false;
-
-    },
-    { passive: true }
-);
-
-
-galleryTrack.addEventListener(
-    "touchmove",
-    event => {
-
-        const touch =
-            event.changedTouches[0];
-
-        const differenceX =
-            Math.abs(touch.clientX - touchStartX);
-
-        const differenceY =
-            Math.abs(touch.clientY - touchStartY);
-
 
         if (
-            differenceX > 15 &&
-            differenceX > differenceY
+            event.pointerType === "mouse" &&
+            event.button !== 0
         ) {
-
-            isSwiping = true;
-
-        }
-
-    },
-    { passive: true }
-);
-
-
-galleryTrack.addEventListener(
-    "touchend",
-    event => {
-
-        const touch =
-            event.changedTouches[0];
-
-        const differenceX =
-            touchStartX - touch.clientX;
-
-
-        const minimumSwipe = 45;
-
-
-        if (
-            !isSwiping ||
-            Math.abs(differenceX) < minimumSwipe
-        ) {
-
             return;
+        }
+
+
+        galleryPointerId =
+            event.pointerId;
+
+        galleryStartX =
+            event.clientX;
+
+        galleryStartY =
+            event.clientY;
+
+        galleryCurrentX =
+            event.clientX;
+
+        galleryIsDragging = true;
+
+        galleryHorizontalGesture =
+            false;
+
+        galleryMoved = false;
+
+
+        clearInterval(
+            galleryAutoPlay
+        );
+
+
+        galleryTrack.style.transition =
+            "none";
+
+
+        galleryTrack.setPointerCapture(
+            event.pointerId
+        );
+
+    }
+);
+
+
+galleryTrack.addEventListener(
+    "pointermove",
+    event => {
+
+        if (
+            !galleryIsDragging ||
+            event.pointerId !== galleryPointerId
+        ) {
+            return;
+        }
+
+
+        galleryCurrentX =
+            event.clientX;
+
+
+        const deltaX =
+            galleryCurrentX -
+            galleryStartX;
+
+
+        const deltaY =
+            event.clientY -
+            galleryStartY;
+
+
+        if (
+            Math.abs(deltaX) > 8 &&
+            Math.abs(deltaX) >
+            Math.abs(deltaY)
+        ) {
+
+            galleryHorizontalGesture =
+                true;
 
         }
 
 
-        if (differenceX > 0) {
-
-            nextGallerySlide();
-
-        } else {
-
-            previousGallerySlide();
-
+        if (
+            !galleryHorizontalGesture
+        ) {
+            return;
         }
 
 
-        resetGalleryAutoPlay();
+        galleryMoved = true;
 
-        isSwiping = false;
 
-    },
-    { passive: true }
+        const carouselWidth =
+            gallerySection
+                .querySelector(
+                    ".gallery-carousel"
+                )
+                .offsetWidth;
+
+
+        if (!carouselWidth) {
+            return;
+        }
+
+
+        const percentage =
+            (deltaX /
+                carouselWidth) *
+            100;
+
+
+        galleryTrack.style.transform =
+            `translate3d(calc(-${
+                currentGalleryIndex * 100
+            }% + ${percentage}%), 0, 0)`;
+
+    }
+);
+
+
+function finishGalleryDrag() {
+
+    if (!galleryIsDragging) {
+        return;
+    }
+
+
+    const deltaX =
+        galleryCurrentX -
+        galleryStartX;
+
+
+    const minimumSwipe = 45;
+
+
+    galleryIsDragging = false;
+
+
+    if (
+        !galleryHorizontalGesture ||
+        Math.abs(deltaX) <
+        minimumSwipe
+    ) {
+
+        showGallerySlide(
+            currentGalleryIndex,
+            true
+        );
+
+        startGalleryAutoPlay();
+
+        galleryHorizontalGesture =
+            false;
+
+        galleryMoved = false;
+
+        galleryPointerId = null;
+
+        return;
+    }
+
+
+    if (deltaX < 0) {
+
+        nextGallerySlide();
+
+    } else {
+
+        previousGallerySlide();
+
+    }
+
+
+    resetGalleryAutoPlay();
+
+
+    galleryHorizontalGesture =
+        false;
+
+    galleryMoved = false;
+
+    galleryPointerId = null;
+}
+
+
+galleryTrack.addEventListener(
+    "pointerup",
+    event => {
+
+        if (
+            event.pointerId !==
+            galleryPointerId
+        ) {
+            return;
+        }
+
+        finishGalleryDrag();
+
+    }
+);
+
+
+galleryTrack.addEventListener(
+    "pointercancel",
+    event => {
+
+        if (
+            event.pointerId !==
+            galleryPointerId
+        ) {
+            return;
+        }
+
+        showGallerySlide(
+            currentGalleryIndex,
+            true
+        );
+
+        galleryIsDragging = false;
+
+        galleryHorizontalGesture =
+            false;
+
+        galleryMoved = false;
+
+        galleryPointerId = null;
+
+        startGalleryAutoPlay();
+
+    }
+);
+
+
+/* =========================================================
+   EVITAR DRAG NATIVO DE IMÁGENES
+========================================================= */
+
+galleryTrack.addEventListener(
+    "dragstart",
+    event => {
+
+        event.preventDefault();
+
+    }
 );
 
 
@@ -846,9 +1096,10 @@ galleryTrack.addEventListener(
    INICIO DEL CARRUSEL
 ========================================================= */
 
-showGallerySlide(0, false);
-
-startGalleryAutoPlay();
+showGallerySlide(
+    0,
+    false
+);
 
 
 /* =========================================================
@@ -856,25 +1107,39 @@ startGalleryAutoPlay();
 ========================================================= */
 
 const welcomeElement =
-    mainPage.querySelector(".welcome");
+    mainPage.querySelector(
+        ".welcome"
+    );
 
 const countdownElement =
-    mainPage.querySelector(".countdown-section");
+    mainPage.querySelector(
+        ".countdown-section"
+    );
 
 const eventElement =
-    mainPage.querySelector(".event-section");
+    mainPage.querySelector(
+        ".event-section"
+    );
 
 const locationElement =
-    mainPage.querySelector(".location-section");
+    mainPage.querySelector(
+        ".location-section"
+    );
 
 const galleryElement =
-    mainPage.querySelector(".gallery-section");
+    mainPage.querySelector(
+        ".gallery-section"
+    );
 
 const confirmationElement =
-    mainPage.querySelector(".confirmation-section");
+    mainPage.querySelector(
+        ".confirmation-section"
+    );
 
 const eventCards =
-    mainPage.querySelectorAll(".event-card");
+    mainPage.querySelectorAll(
+        ".event-card"
+    );
 
 
 const animatedContent = [
@@ -887,18 +1152,26 @@ const animatedContent = [
 ];
 
 
-animatedContent.forEach(element => {
+animatedContent.forEach(
+    element => {
 
-    element.classList.add("page-entry");
+        element.classList.add(
+            "page-entry"
+        );
 
-});
+    }
+);
 
 
-eventCards.forEach(card => {
+eventCards.forEach(
+    card => {
 
-    card.classList.add("page-entry");
+        card.classList.add(
+            "page-entry"
+        );
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -915,19 +1188,23 @@ setTimeout(() => {
 
     cover.style.opacity = "0";
 
-    cover.style.transform = "scale(1.01)";
+    cover.style.transform =
+        "scale(1.01)";
 
 
     mainPage.style.opacity = "1";
 
-    mainPage.style.pointerEvents = "auto";
+    mainPage.style.pointerEvents =
+        "auto";
 
 
     /* BIENVENIDA */
 
     setTimeout(() => {
 
-        welcomeElement.classList.add("entry-visible");
+        welcomeElement.classList.add(
+            "entry-visible"
+        );
 
     }, 100);
 
@@ -936,7 +1213,9 @@ setTimeout(() => {
 
     setTimeout(() => {
 
-        countdownElement.classList.add("entry-visible");
+        countdownElement.classList.add(
+            "entry-visible"
+        );
 
     }, 400);
 
@@ -945,29 +1224,37 @@ setTimeout(() => {
 
     setTimeout(() => {
 
-        eventElement.classList.add("entry-visible");
+        eventElement.classList.add(
+            "entry-visible"
+        );
 
     }, 700);
 
 
     /* TARJETAS */
 
-    eventCards.forEach((card, index) => {
+    eventCards.forEach(
+        (card, index) => {
 
-        setTimeout(() => {
+            setTimeout(() => {
 
-            card.classList.add("entry-visible");
+                card.classList.add(
+                    "entry-visible"
+                );
 
-        }, 900 + index * 180);
+            }, 900 + index * 180);
 
-    });
+        }
+    );
 
 
     /* UBICACIÓN */
 
     setTimeout(() => {
 
-        locationElement.classList.add("entry-visible");
+        locationElement.classList.add(
+            "entry-visible"
+        );
 
     }, 1450);
 
@@ -976,7 +1263,9 @@ setTimeout(() => {
 
     setTimeout(() => {
 
-        galleryElement.classList.add("entry-visible");
+        galleryElement.classList.add(
+            "entry-visible"
+        );
 
         resetGalleryAutoPlay();
 
@@ -987,7 +1276,9 @@ setTimeout(() => {
 
     setTimeout(() => {
 
-        confirmationElement.classList.add("entry-visible");
+        confirmationElement.classList.add(
+            "entry-visible"
+        );
 
     }, 2750);
 
