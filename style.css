@@ -847,6 +847,7 @@ a {
     inset 0 1px rgba(255, 255, 255, 0.06),
     0 20px 60px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(10px);
+  
 }
 
 .count-box strong {
@@ -858,7 +859,7 @@ a {
 
 .count-box span {
   margin-top: 10px;
-  font-size: clamp(7px, 1.2vw, 9px);
+  font-size: clamp(15px, 1.2vw, 9px);
   letter-spacing: 0.18em;
   color: rgba(255, 255, 255, 0.45);
   white-space: nowrap;
@@ -1240,7 +1241,7 @@ footer small {
 
   .count-box span {
     margin-top: 8px;
-    font-size: 7px;
+    font-size: 15px;
     letter-spacing: 0.08em;
   }
 
