@@ -1,7 +1,7 @@
 const CONFIG = {
   eventDate: "2026-10-31T21:00:00-03:00",
   mapsLink: "https://maps.app.goo.gl/5uuuT4VhBRKXMNh69",
-  whatsappLink: "https://wa.me/5491130160060?text=Hola%20quiero%20confirmar%20mi%20asistencia%20a%20los%2018%20de%20Facu",
+  whatsappLink: "https://wa.me/5491122394862?text=Hola%20quiero%20confirmar%20mi%20asistencia%20a%20los%2018%20de%20Facu",
   music: "musica.mp3",
   gallery: [
     "foto1.png",
@@ -983,6 +983,95 @@ mainPage.appendChild(
 );
 
 /* =========================================================
+   REGALITO / ALIAS
+   ========================================================= */
+
+const giftSection = document.createElement("section");
+
+giftSection.className = "gift-section section";
+
+giftSection.innerHTML = `
+  <div class="gift-stars">
+    <span>★</span>
+    <span>★</span>
+    <span>★</span>
+  </div>
+
+  <p class="section-kicker text-18">
+    UN PEQUEÑO DETALLE
+  </p>
+
+  <h2>
+    Si querés dejarme<br>
+    <span>un regalito</span>
+  </h2>
+
+  <p class="text-18">
+    Tu presencia es lo más importante,
+    pero si querés acompañar esta nueva etapa
+    con un detalle especial, podés hacerlo
+    a través de mi alias.
+  </p>
+
+  <div class="alias-box">
+    <span>MI ALIAS:</span>
+
+    <strong id="aliasText">
+      Facu3008.mp
+    </strong>
+
+    <button
+      class="main-button copy-alias"
+      type="button"
+    >
+      COPIAR ALIAS
+    </button>
+  </div>
+`;
+
+mainPage.appendChild(giftSection);
+mainPage.appendChild(createSectionSeparator());
+
+
+/* =========================================================
+   COPIAR ALIAS
+   ========================================================= */
+
+const copyAliasButton =
+  giftSection.querySelector(".copy-alias");
+
+copyAliasButton.addEventListener(
+  "click",
+  async () => {
+
+    const alias =
+      giftSection.querySelector("#aliasText").textContent.trim();
+
+    try {
+
+      await navigator.clipboard.writeText(alias);
+
+      copyAliasButton.textContent =
+        "¡ALIAS COPIADO!";
+
+      setTimeout(() => {
+        copyAliasButton.textContent =
+          "COPIAR ALIAS";
+      }, 2000);
+
+    } catch (error) {
+
+      alert("Alias: " + alias);
+
+    }
+
+  }
+  
+)
+;
+
+
+/* =========================================================
    GALLERY
    ========================================================= */
 
@@ -1016,6 +1105,8 @@ gallerySection.innerHTML = `
 mainPage.appendChild(
   gallerySection
 );
+
+
 
 /* =========================================================
    GALERÍA - REFERENCIAS
@@ -1169,6 +1260,7 @@ footer.innerHTML = `
 mainPage.appendChild(
   footer
 );
+
 
 /* =========================================================
    COUNTDOWN

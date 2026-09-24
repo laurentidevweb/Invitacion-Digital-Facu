@@ -2347,3 +2347,69 @@ footer small {
   }
 
 }
+
+/* =========================================================
+   GIFT / ALIAS
+   ========================================================= */
+
+.gift-section {
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+}
+
+.gift-stars {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 25px;
+  color: #d8b56a;
+  font-size: 18px;
+}
+
+.gift-section h2 {
+  margin-bottom: 20px;
+}
+
+.gift-section h2 span {
+  color: #d8b56a;
+}
+
+.gift-section p.text-18 {
+  max-width: 420px;
+  margin: 0 auto 35px;
+  line-height: 1.7;
+}
+
+.alias-box {
+  width: min(100%, 360px);
+  margin: 0 auto;
+  padding: 28px 22px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(216,181,106,0.35);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.alias-box span {
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.7);
+}
+
+.alias-box strong {
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.copy-alias {
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+}
