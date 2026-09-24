@@ -2,6 +2,7 @@ const CONFIG = {
   eventDate: "2026-10-31T21:00:00-03:00",
   mapsLink: "https://maps.app.goo.gl/5uuuT4VhBRKXMNh69",
   whatsappLink: "https://wa.me/+5491130160060",
+  music: "musica.mp3",
   gallery: [
     "foto1.png",
     "foto2.png",
@@ -15,17 +16,10 @@ const app = document.getElementById("app");
 
 window.scrollTo(0, 0);
 
-/* =========================
-   ALTURA ESTABLE DEL VIEWPORT
-========================= */
-
 function setStableViewportHeight() {
   const viewportHeight = window.innerHeight;
 
-  if (
-    Number.isFinite(viewportHeight) &&
-    viewportHeight > 0
-  ) {
+  if (Number.isFinite(viewportHeight) && viewportHeight > 0) {
     document.documentElement.style.setProperty(
       "--stable-vh",
       `${viewportHeight}px`
@@ -35,17 +29,548 @@ function setStableViewportHeight() {
 
 setStableViewportHeight();
 
-/* =========================
+/* =========================================================
+   INTRO CINEMATOGRÁFICA
+   UNA SOLA PELOTA: pelota.png
+   ========================================================= */
+
+const footballIntro = document.createElement("section");
+
+footballIntro.className = "football-intro";
+
+footballIntro.setAttribute(
+  "aria-label",
+  "Introducción de la invitación"
+);
+
+footballIntro.innerHTML = `
+  <div class="intro-bg"></div>
+
+  <div class="intro-light intro-light-left"></div>
+
+  <div class="intro-light intro-light-right"></div>
+
+  <div class="intro-vignette"></div>
+
+  <div class="intro-ball-orbit">
+    <button
+      class="intro-ball"
+      type="button"
+      aria-label="Tocar la pelota para comenzar"
+    >
+      <img
+        src="pelota.png"
+        alt=""
+        draggable="false"
+      >
+    </button>
+  </div>
+
+  <div class="intro-message">
+    <span>TOCÁ LA PELOTA</span>
+    <small>PARA COMENZAR</small>
+  </div>
+
+  <div class="intro-flash"></div>
+`;
+
+app.appendChild(footballIntro);
+
+/* =========================================================
+   MÚSICA
+   ========================================================= */
+
+const introMusic = document.createElement("audio");
+
+introMusic.src = CONFIG.music;
+introMusic.preload = "auto";
+introMusic.loop = false;
+introMusic.setAttribute("aria-hidden", "true");
+
+document.body.appendChild(introMusic);
+
+/* =========================================================
+   REFERENCIAS INTRO
+   ========================================================= */
+
+const introBallOrbit =
+  footballIntro.querySelector(".intro-ball-orbit");
+
+const introBall =
+  footballIntro.querySelector(".intro-ball");
+
+const introBallImage =
+  footballIntro.querySelector(".intro-ball img");
+
+const introMessage =
+  footballIntro.querySelector(".intro-message");
+
+const introFlash =
+  footballIntro.querySelector(".intro-flash");
+
+let introStarted = false;
+
+/* =========================================================
+   ASEGURAR QUE NO HAYA PELOTA CSS ATRÁS
+   ========================================================= */
+
+introBall.style.background = "transparent";
+introBall.style.backgroundImage = "none";
+introBall.style.border = "0";
+introBall.style.outline = "none";
+introBall.style.boxShadow = "none";
+introBall.style.padding = "0";
+introBall.style.overflow = "visible";
+
+introBallImage.style.display = "block";
+introBallImage.style.width = "100%";
+introBallImage.style.height = "100%";
+introBallImage.style.objectFit = "contain";
+introBallImage.style.pointerEvents = "none";
+introBallImage.style.userSelect = "none";
+introBallImage.style.webkitUserSelect = "none";
+introBallImage.style.webkitUserDrag = "none";
+
+/* =========================================================
+   ANIMACIÓN DE LA PELOTA
+   ========================================================= */
+
+function animateFootballIntro() {
+  /*
+   * Reiniciamos cualquier animación anterior.
+   */
+
+  introBallOrbit.getAnimations().forEach(
+    animation => animation.cancel()
+  );
+
+  introBall.getAnimations().forEach(
+    animation => animation.cancel()
+  );
+
+  /*
+   * Estado inicial.
+   */
+
+  introBallOrbit.style.transform =
+    "translate3d(0, 0, 0) scale(1)";
+
+  introBall.style.transform =
+    "rotateZ(0deg)";
+
+  /*
+   * =======================================================
+   * PRIMER MOVIMIENTO
+   *
+   * La pelota sale hacia la izquierda,
+   * con un movimiento suave y continuo.
+   * =======================================================
+   */
+
+  introBallOrbit.animate(
+    [
+      {
+        transform:
+          "translate3d(0, 0, 0) scale(1)"
+      },
+
+      {
+        transform:
+          "translate3d(-55px, -20px, 0) scale(0.98)"
+      },
+
+      {
+        transform:
+          "translate3d(-150px, -45px, 0) scale(0.9)"
+      },
+
+      {
+        transform:
+          "translate3d(-300px, -20px, 0) scale(0.72)"
+      },
+
+      {
+        transform:
+          "translate3d(-520px, 55px, 0) scale(0.48)"
+      },
+
+      {
+        transform:
+          "translate3d(-800px, 90px, 0) scale(0.28)"
+      }
+    ],
+    {
+      duration: 1000,
+      easing: "cubic-bezier(0.45, 0, 0.75, 1)",
+      fill: "forwards"
+    }
+  );
+
+  /*
+   * Giro moderado.
+   * No hacemos giros exagerados en todos los ejes.
+   */
+
+  introBall.animate(
+    [
+      {
+        transform:
+          "rotateZ(0deg)"
+      },
+
+      {
+        transform:
+          "rotateZ(-70deg)"
+      },
+
+      {
+        transform:
+          "rotateZ(-160deg)"
+      },
+
+      {
+        transform:
+          "rotateZ(-260deg)"
+      },
+
+      {
+        transform:
+          "rotateZ(-360deg)"
+      }
+    ],
+    {
+      duration: 1000,
+      easing: "linear",
+      fill: "forwards"
+    }
+  );
+
+  /*
+   * =======================================================
+   * SEGUNDO MOVIMIENTO
+   *
+   * La MISMA pelota reaparece desde la derecha.
+   * No se crea ninguna pelota nueva.
+   * =======================================================
+   */
+
+  setTimeout(() => {
+    introBallOrbit.getAnimations().forEach(
+      animation => animation.cancel()
+    );
+
+    introBall.getAnimations().forEach(
+      animation => animation.cancel()
+    );
+
+    introBallOrbit.style.transform =
+      "translate3d(calc(50vw + 220px), 25px, 0) scale(0.25)";
+
+    introBall.style.transform =
+      "rotateZ(-360deg)";
+
+    introBallOrbit.animate(
+      [
+        {
+          transform:
+            "translate3d(calc(50vw + 220px), 25px, 0) scale(0.25)"
+        },
+
+        {
+          transform:
+            "translate3d(calc(50vw + 150px), 15px, 0) scale(0.38)"
+        },
+
+        {
+          transform:
+            "translate3d(calc(50vw + 70px), 5px, 0) scale(0.6)"
+        },
+
+        {
+          transform:
+            "translate3d(calc(50vw + 15px), 0, 0) scale(0.95)"
+        },
+
+        {
+          transform:
+            "translate3d(calc(50vw - 10px), 0, 0) scale(1.35)"
+        }
+      ],
+      {
+        duration: 750,
+        easing: "cubic-bezier(0.16, 0.8, 0.22, 1)",
+        fill: "forwards"
+      }
+    );
+
+    introBall.animate(
+      [
+        {
+          transform:
+            "rotateZ(-360deg)"
+        },
+
+        {
+          transform:
+            "rotateZ(-450deg)"
+        },
+
+        {
+          transform:
+            "rotateZ(-540deg)"
+        },
+
+        {
+          transform:
+            "rotateZ(-630deg)"
+        }
+      ],
+      {
+        duration: 750,
+        easing: "linear",
+        fill: "forwards"
+      }
+    );
+
+    /*
+     * =====================================================
+     * PASADA FINAL DE LA MISMA PELOTA
+     *
+     * La pelota se acerca a cámara y cubre la pantalla.
+     * =====================================================
+     */
+
+    setTimeout(() => {
+      introBallOrbit.getAnimations().forEach(
+        animation => animation.cancel()
+      );
+
+      introBall.getAnimations().forEach(
+        animation => animation.cancel()
+      );
+
+      introBallOrbit.animate(
+        [
+          {
+            transform:
+              "translate3d(calc(50vw - 10px), 0, 0) scale(1.35)"
+          },
+
+          {
+            transform:
+              "translate3d(calc(50vw + 20px), 0, 0) scale(2.2)"
+          },
+
+          {
+            transform:
+              "translate3d(calc(50vw + 80px), 0, 0) scale(4)"
+          },
+
+          {
+            transform:
+              "translate3d(calc(50vw + 170px), 0, 0) scale(7)"
+          },
+
+          {
+            transform:
+              "translate3d(calc(50vw + 300px), 0, 0) scale(12)"
+          },
+
+          {
+            transform:
+              "translate3d(calc(50vw + 500px), 0, 0) scale(20)"
+          },
+
+          {
+            transform:
+              "translate3d(calc(50vw + 750px), 0, 0) scale(32)"
+          }
+        ],
+        {
+          duration: 700,
+          easing: "cubic-bezier(0.2, 0.75, 0.15, 1)",
+          fill: "forwards"
+        }
+      );
+
+      introBall.animate(
+        [
+          {
+            transform:
+              "rotateZ(-630deg)"
+          },
+
+          {
+            transform:
+              "rotateZ(-720deg)"
+          },
+
+          {
+            transform:
+              "rotateZ(-810deg)"
+          }
+        ],
+        {
+          duration: 700,
+          easing: "linear",
+          fill: "forwards"
+        }
+      );
+
+    }, 750);
+
+  }, 1000);
+}
+
+/* =========================================================
+   INICIAR INTRO
+   ========================================================= */
+
+function startFootballIntro() {
+  if (introStarted) return;
+
+  introStarted = true;
+
+  introBall.blur();
+
+  introMessage.classList.add(
+    "message-hidden"
+  );
+
+  footballIntro.classList.add(
+    "intro-orbit"
+  );
+
+  footballIntro.classList.add(
+    "intro-started"
+  );
+
+  /*
+   * Arranca inmediatamente la animación
+   * de la única pelota.
+   */
+  animateFootballIntro();
+
+  /*
+   * Música.
+   */
+  introMusic.currentTime = 0;
+
+  const musicPromise =
+    introMusic.play();
+
+  if (
+    musicPromise &&
+    typeof musicPromise.catch === "function"
+  ) {
+    musicPromise.catch(() => {});
+  }
+
+  /*
+   * La cámara entra en modo transición.
+   */
+  setTimeout(() => {
+    footballIntro.classList.add(
+      "intro-camera"
+    );
+  }, 1050);
+
+  /*
+   * IMPORTANTE:
+   * el flash empieza ANTES de que la pelota
+   * termine completamente de cubrir la pantalla.
+   *
+   * Así evitamos el segundo de congelamiento.
+   */
+  setTimeout(() => {
+    introFlash.classList.add(
+      "flash-active"
+    );
+  }, 1900);
+
+  /*
+   * La portada empieza a entrar mientras
+   * la pelota todavía está terminando
+   * de acercarse.
+   */
+  setTimeout(() => {
+    footballIntro.classList.add(
+      "intro-finished"
+    );
+  }, 2150);
+
+  /*
+   * La pelota ya terminó de cubrir la cámara
+   * y la intro desaparece inmediatamente.
+   *
+   * No dejamos 1 segundo muerto.
+   */
+  setTimeout(() => {
+    footballIntro.remove();
+
+    startMainExperience();
+  }, 2350);
+}
+
+/* =========================================================
+   LISTENERS DE LA PELOTA
+   ========================================================= */
+
+introBall.addEventListener(
+  "click",
+  startFootballIntro
+);
+
+introBall.addEventListener(
+  "pointerup",
+  event => {
+    if (
+      event.pointerType === "touch"
+    ) {
+      event.preventDefault();
+      startFootballIntro();
+    }
+  }
+);
+
+footballIntro.addEventListener(
+  "click",
+  event => {
+    if (
+      event.target.closest(
+        ".intro-ball"
+      )
+    ) {
+      startFootballIntro();
+    }
+  }
+);
+
+introBall.addEventListener(
+  "keydown",
+  event => {
+    if (
+      event.key === "Enter" ||
+      event.key === " "
+    ) {
+      event.preventDefault();
+      startFootballIntro();
+    }
+  }
+);
+
+/* =========================================================
    PORTADA
-========================= */
+   ========================================================= */
 
-const cover = document.createElement("section");
+const cover =
+  document.createElement("section");
 
-cover.className = "cover";
+cover.className =
+  "cover cover-hidden";
 
 cover.innerHTML = `
   <div class="cover-background"></div>
-
   <div class="cover-flag"></div>
 
   <div class="cover-spark spark-1"></div>
@@ -85,82 +610,113 @@ cover.innerHTML = `
   </div>
 `;
 
-app.appendChild(cover);
+app.appendChild(
+  cover
+);
 
-/* =========================
+/* =========================================================
    MAIN PAGE
-========================= */
+   ========================================================= */
 
-const mainPage = document.createElement("main");
+const mainPage =
+  document.createElement("main");
 
-mainPage.className = "main-page";
+mainPage.className =
+  "main-page";
 
-mainPage.style.opacity = "0";
-mainPage.style.pointerEvents = "none";
+mainPage.style.opacity =
+  "0";
 
-app.appendChild(mainPage);
+mainPage.style.pointerEvents =
+  "none";
 
-/* =========================
+app.appendChild(
+  mainPage
+);
+
+/* =========================================================
    BACKGROUND
-========================= */
+   ========================================================= */
 
-const backgroundGlow = document.createElement("div");
+const backgroundGlow =
+  document.createElement("div");
 
-backgroundGlow.className = "background-glow";
+backgroundGlow.className =
+  "background-glow";
 
-mainPage.appendChild(backgroundGlow);
+mainPage.appendChild(
+  backgroundGlow
+);
 
-const backgroundGlow2 = document.createElement("div");
+const backgroundGlow2 =
+  document.createElement("div");
 
 backgroundGlow2.className =
   "background-glow glow-two";
 
-mainPage.appendChild(backgroundGlow2);
+mainPage.appendChild(
+  backgroundGlow2
+);
 
-const backgroundSweep = document.createElement("div");
+const backgroundSweep =
+  document.createElement("div");
 
-backgroundSweep.className = "background-sweep";
+backgroundSweep.className =
+  "background-sweep";
 
-mainPage.appendChild(backgroundSweep);
+mainPage.appendChild(
+  backgroundSweep
+);
 
-const diagonalLines = document.createElement("div");
+const diagonalLines =
+  document.createElement("div");
 
-diagonalLines.className = "diagonal-lines";
+diagonalLines.className =
+  "diagonal-lines";
 
-mainPage.appendChild(diagonalLines);
+mainPage.appendChild(
+  diagonalLines
+);
 
-/* =========================
+/* =========================================================
    ARGENTINA FLAGS
-========================= */
+   ========================================================= */
 
-const argentinaFlag = document.createElement("div");
+const argentinaFlag =
+  document.createElement("div");
 
-argentinaFlag.className = "argentina-flag";
+argentinaFlag.className =
+  "argentina-flag";
 
-argentinaFlag.innerHTML = `
-  <div class="flag-sun"></div>
-`;
+argentinaFlag.innerHTML =
+  `<div class="flag-sun"></div>`;
 
-mainPage.appendChild(argentinaFlag);
+mainPage.appendChild(
+  argentinaFlag
+);
 
-const argentinaFlag2 = document.createElement("div");
+const argentinaFlag2 =
+  document.createElement("div");
 
 argentinaFlag2.className =
   "argentina-flag flag-two";
 
-argentinaFlag2.innerHTML = `
-  <div class="flag-sun"></div>
-`;
+argentinaFlag2.innerHTML =
+  `<div class="flag-sun"></div>`;
 
-mainPage.appendChild(argentinaFlag2);
+mainPage.appendChild(
+  argentinaFlag2
+);
 
-/* =========================
-   FOOTBALL
-========================= */
+/* =========================================================
+   FOOTBALL DECOR
+   ========================================================= */
 
-const football = document.createElement("div");
+const football =
+  document.createElement("div");
 
-football.className = "football-decor";
+football.className =
+  "football-decor";
 
 football.innerHTML = `
   <div class="football-center"></div>
@@ -170,11 +726,13 @@ football.innerHTML = `
   <div class="football-line line-d"></div>
 `;
 
-mainPage.appendChild(football);
+mainPage.appendChild(
+  football
+);
 
-/* =========================
+/* =========================================================
    GOLD SPARKLES
-========================= */
+   ========================================================= */
 
 const sparkleContainer =
   document.createElement("div");
@@ -182,21 +740,29 @@ const sparkleContainer =
 sparkleContainer.className =
   "gold-sparkles";
 
-for (let i = 1; i <= 8; i++) {
+for (
+  let i = 1;
+  i <= 8;
+  i++
+) {
   const sparkle =
     document.createElement("span");
 
   sparkle.className =
     `gold-spark sparkle-${i}`;
 
-  sparkleContainer.appendChild(sparkle);
+  sparkleContainer.appendChild(
+    sparkle
+  );
 }
 
-mainPage.appendChild(sparkleContainer);
+mainPage.appendChild(
+  sparkleContainer
+);
 
-/* =========================
+/* =========================================================
    SEPARATOR
-========================= */
+   ========================================================= */
 
 function createSectionSeparator() {
   const separator =
@@ -220,9 +786,9 @@ function createSectionSeparator() {
   return separator;
 }
 
-/* =========================
+/* =========================================================
    WELCOME
-========================= */
+   ========================================================= */
 
 const welcome =
   document.createElement("section");
@@ -250,15 +816,17 @@ welcome.innerHTML = `
   </div>
 `;
 
-mainPage.appendChild(welcome);
+mainPage.appendChild(
+  welcome
+);
 
 mainPage.appendChild(
   createSectionSeparator()
 );
 
-/* =========================
+/* =========================================================
    COUNTDOWN
-========================= */
+   ========================================================= */
 
 const countdownSection =
   document.createElement("section");
@@ -300,15 +868,17 @@ countdownSection.innerHTML = `
   </div>
 `;
 
-mainPage.appendChild(countdownSection);
+mainPage.appendChild(
+  countdownSection
+);
 
 mainPage.appendChild(
   createSectionSeparator()
 );
 
-/* =========================
+/* =========================================================
    EVENT
-========================= */
+   ========================================================= */
 
 const eventSection =
   document.createElement("section");
@@ -328,7 +898,6 @@ eventSection.innerHTML = `
   <div class="event-grid">
 
     <div class="event-card">
-
       <div class="event-label">
         FECHA
       </div>
@@ -336,11 +905,9 @@ eventSection.innerHTML = `
       <div class="event-value text-18">
         31 DE OCTUBRE
       </div>
-
     </div>
 
     <div class="event-card">
-
       <div class="event-label">
         HORA
       </div>
@@ -348,11 +915,9 @@ eventSection.innerHTML = `
       <div class="event-value text-18">
         21:00 HS
       </div>
-
     </div>
 
     <div class="event-card">
-
       <div class="event-label">
         DRESS CODE
       </div>
@@ -360,21 +925,22 @@ eventSection.innerHTML = `
       <div class="event-value text-18">
         ELEGANTE SPORT
       </div>
-
     </div>
 
   </div>
 `;
 
-mainPage.appendChild(eventSection);
+mainPage.appendChild(
+  eventSection
+);
 
 mainPage.appendChild(
   createSectionSeparator()
 );
 
-/* =========================
+/* =========================================================
    LOCATION
-========================= */
+   ========================================================= */
 
 const locationSection =
   document.createElement("section");
@@ -407,15 +973,17 @@ locationSection.innerHTML = `
   </a>
 `;
 
-mainPage.appendChild(locationSection);
+mainPage.appendChild(
+  locationSection
+);
 
 mainPage.appendChild(
   createSectionSeparator()
 );
 
-/* =========================
+/* =========================================================
    GALLERY
-========================= */
+   ========================================================= */
 
 const gallerySection =
   document.createElement("section");
@@ -444,7 +1012,13 @@ gallerySection.innerHTML = `
   <div class="gallery-dots"></div>
 `;
 
-mainPage.appendChild(gallerySection);
+mainPage.appendChild(
+  gallerySection
+);
+
+/* =========================================================
+   GALERÍA - REFERENCIAS
+   ========================================================= */
 
 const galleryCarousel =
   gallerySection.querySelector(
@@ -461,57 +1035,66 @@ const galleryDots =
     ".gallery-dots"
   );
 
-/* =========================
-   CREATE SLIDES
-========================= */
+/* =========================================================
+   CREAR SLIDES
+   ========================================================= */
 
-CONFIG.gallery.forEach((photo, index) => {
-  const slide =
-    document.createElement("div");
+CONFIG.gallery.forEach(
+  (photo, index) => {
 
-  slide.className =
-    "gallery-slide";
+    const slide =
+      document.createElement("div");
 
-  slide.innerHTML = `
-    <img
-      src="${photo}"
-      alt="Foto ${index + 1}"
-      draggable="false"
-    >
-  `;
+    slide.className =
+      "gallery-slide";
 
-  galleryTrack.appendChild(slide);
+    slide.innerHTML = `
+      <img
+        src="${photo}"
+        alt="Foto ${index + 1}"
+        draggable="false"
+      >
+    `;
 
-  const dot =
-    document.createElement("button");
+    galleryTrack.appendChild(
+      slide
+    );
 
-  dot.type = "button";
+    const dot =
+      document.createElement("button");
 
-  dot.className =
-    "gallery-dot";
+    dot.type = "button";
 
-  if (index === 0) {
-    dot.classList.add("active");
+    dot.className =
+      "gallery-dot";
+
+    if (index === 0) {
+      dot.classList.add(
+        "active"
+      );
+    }
+
+    dot.setAttribute(
+      "aria-label",
+      `Ver foto ${index + 1}`
+    );
+
+    dot.setAttribute(
+      "aria-current",
+      index === 0
+        ? "true"
+        : "false"
+    );
+
+    galleryDots.appendChild(
+      dot
+    );
   }
+);
 
-  dot.setAttribute(
-    "aria-label",
-    `Ver foto ${index + 1}`
-  );
-
-  dot.setAttribute(
-    "aria-current",
-    index === 0
-      ? "true"
-      : "false"
-  );
-
-  galleryDots.appendChild(dot);
-});
-
-/* =========================
+/* =========================================================
    CONFIRMATION
-========================= */
+   ========================================================= */
 
 const confirmationSection =
   document.createElement("section");
@@ -555,9 +1138,9 @@ mainPage.appendChild(
   confirmationSection
 );
 
-/* =========================
+/* =========================================================
    FOOTER
-========================= */
+   ========================================================= */
 
 const footer =
   document.createElement("footer");
@@ -582,71 +1165,116 @@ footer.innerHTML = `
   </small>
 `;
 
-mainPage.appendChild(footer);
+mainPage.appendChild(
+  footer
+);
 
-/* =========================
+/* =========================================================
    COUNTDOWN
-========================= */
+   ========================================================= */
 
 const targetDate =
-  new Date(CONFIG.eventDate).getTime();
+  new Date(
+    CONFIG.eventDate
+  ).getTime();
 
 function updateCountdown() {
-  const now = Date.now();
+  const now =
+    Date.now();
 
   const difference =
     targetDate - now;
 
   const daysElement =
-    document.getElementById("days");
+    document.getElementById(
+      "days"
+    );
 
   const hoursElement =
-    document.getElementById("hours");
+    document.getElementById(
+      "hours"
+    );
 
   const minutesElement =
-    document.getElementById("minutes");
+    document.getElementById(
+      "minutes"
+    );
 
   const secondsElement =
-    document.getElementById("seconds");
+    document.getElementById(
+      "seconds"
+    );
 
   if (difference <= 0) {
-    daysElement.textContent = "00";
-    hoursElement.textContent = "00";
-    minutesElement.textContent = "00";
-    secondsElement.textContent = "00";
+
+    daysElement.textContent =
+      "00";
+
+    hoursElement.textContent =
+      "00";
+
+    minutesElement.textContent =
+      "00";
+
+    secondsElement.textContent =
+      "00";
+
     return;
   }
 
-  const days = Math.floor(
-    difference /
+  const days =
+    Math.floor(
+      difference /
       (1000 * 60 * 60 * 24)
-  );
+    );
 
-  const hours = Math.floor(
-    (difference /
-      (1000 * 60 * 60)) % 24
-  );
+  const hours =
+    Math.floor(
+      (
+        difference /
+        (1000 * 60 * 60)
+      ) % 24
+    );
 
-  const minutes = Math.floor(
-    (difference /
-      (1000 * 60)) % 60
-  );
+  const minutes =
+    Math.floor(
+      (
+        difference /
+        (1000 * 60)
+      ) % 60
+    );
 
-  const seconds = Math.floor(
-    (difference / 1000) % 60
-  );
+  const seconds =
+    Math.floor(
+      (
+        difference /
+        1000
+      ) % 60
+    );
 
   daysElement.textContent =
-    String(days).padStart(2, "0");
+    String(days).padStart(
+      2,
+      "0"
+    );
 
   hoursElement.textContent =
-    String(hours).padStart(2, "0");
+    String(hours).padStart(
+      2,
+      "0"
+    );
 
   minutesElement.textContent =
-    String(minutes).padStart(2, "0");
+    String(minutes).padStart(
+      2,
+      "0"
+    );
 
   secondsElement.textContent =
-    String(seconds).padStart(2, "0");
+    String(seconds).padStart(
+      2,
+      "0"
+    );
 }
 
 updateCountdown();
@@ -656,9 +1284,9 @@ setInterval(
   1000
 );
 
-/* =========================
+/* =========================================================
    GALLERY CAROUSEL
-========================= */
+   ========================================================= */
 
 const gallerySlides =
   gallerySection.querySelectorAll(
@@ -670,20 +1298,36 @@ const galleryDotButtons =
     ".gallery-dot"
   );
 
-let currentGalleryIndex = 0;
-let galleryAutoPlay = null;
-let pointerId = null;
-let dragStartX = 0;
-let dragStartY = 0;
-let dragCurrentX = 0;
-let isDraggingGallery = false;
-let horizontalGesture = false;
+let currentGalleryIndex =
+  0;
 
-/* =========================
-   CALCULAR ALTURA DE FOTOS
-========================= */
+let galleryAutoPlay =
+  null;
+
+let pointerId =
+  null;
+
+let dragStartX =
+  0;
+
+let dragStartY =
+  0;
+
+let dragCurrentX =
+  0;
+
+let isDraggingGallery =
+  false;
+
+let horizontalGesture =
+  false;
+
+/* =========================================================
+   ALTURA DE FOTOS
+   ========================================================= */
 
 function getSlideHeight(index) {
+
   const slide =
     gallerySlides[index];
 
@@ -692,7 +1336,9 @@ function getSlideHeight(index) {
   }
 
   const image =
-    slide.querySelector("img");
+    slide.querySelector(
+      "img"
+    );
 
   if (
     !image ||
@@ -703,7 +1349,8 @@ function getSlideHeight(index) {
   }
 
   const carouselWidth =
-    galleryCarousel.getBoundingClientRect()
+    galleryCarousel
+      .getBoundingClientRect()
       .width;
 
   if (!carouselWidth) {
@@ -712,14 +1359,17 @@ function getSlideHeight(index) {
 
   return (
     carouselWidth *
-    (image.naturalHeight /
-      image.naturalWidth)
+    (
+      image.naturalHeight /
+      image.naturalWidth
+    )
   );
 }
 
 function updateGalleryHeight(
   animate = true
 ) {
+
   const height =
     getSlideHeight(
       currentGalleryIndex
@@ -741,13 +1391,25 @@ function updateGalleryHeight(
     `${height}px`;
 
   gallerySlides.forEach(
-    (slide, index) => {
+    slide => {
+
+      const slideIndex =
+        Array.from(
+          gallerySlides
+        ).indexOf(
+          slide
+        );
+
       const slideHeight =
-        getSlideHeight(index);
+        getSlideHeight(
+          slideIndex
+        );
 
       if (
         slideHeight &&
-        Number.isFinite(slideHeight)
+        Number.isFinite(
+          slideHeight
+        )
       ) {
         slide.style.height =
           `${slideHeight}px`;
@@ -756,14 +1418,17 @@ function updateGalleryHeight(
   );
 }
 
-/* =========================
+/* =========================================================
    IMÁGENES CARGADAS
-========================= */
+   ========================================================= */
 
 gallerySlides.forEach(
   (slide, index) => {
+
     const image =
-      slide.querySelector("img");
+      slide.querySelector(
+        "img"
+      );
 
     if (!image) {
       return;
@@ -772,12 +1437,17 @@ gallerySlides.forEach(
     image.addEventListener(
       "load",
       () => {
+
         const slideHeight =
-          getSlideHeight(index);
+          getSlideHeight(
+            index
+          );
 
         if (
           slideHeight &&
-          Number.isFinite(slideHeight)
+          Number.isFinite(
+            slideHeight
+          )
         ) {
           slide.style.height =
             `${slideHeight}px`;
@@ -787,21 +1457,24 @@ gallerySlides.forEach(
           index ===
           currentGalleryIndex
         ) {
-          updateGalleryHeight(false);
+          updateGalleryHeight(
+            false
+          );
         }
       }
     );
   }
 );
 
-/* =========================
+/* =========================================================
    SHOW SLIDE
-========================= */
+   ========================================================= */
 
 function showGallerySlide(
   index,
   animate = true
 ) {
+
   if (!gallerySlides.length) {
     return;
   }
@@ -810,14 +1483,16 @@ function showGallerySlide(
     gallerySlides.length;
 
   if (index < 0) {
-    index = totalSlides - 1;
+    index =
+      totalSlides - 1;
   }
 
   if (index >= totalSlides) {
     index = 0;
   }
 
-  currentGalleryIndex = index;
+  currentGalleryIndex =
+    index;
 
   galleryTrack.style.transition =
     animate
@@ -829,6 +1504,7 @@ function showGallerySlide(
 
   galleryDotButtons.forEach(
     (dot, dotIndex) => {
+
       const isActive =
         dotIndex === index;
 
@@ -846,7 +1522,9 @@ function showGallerySlide(
     }
   );
 
-  updateGalleryHeight(animate);
+  updateGalleryHeight(
+    animate
+  );
 }
 
 function nextGallerySlide() {
@@ -861,58 +1539,71 @@ function previousGallerySlide() {
   );
 }
 
-/* =========================
+/* =========================================================
    AUTOPLAY
-========================= */
+   ========================================================= */
 
 function stopGalleryAutoPlay() {
+
   if (
     galleryAutoPlay !== null
   ) {
+
     clearInterval(
       galleryAutoPlay
     );
 
-    galleryAutoPlay = null;
+    galleryAutoPlay =
+      null;
   }
 }
 
 function startGalleryAutoPlay() {
+
   stopGalleryAutoPlay();
 
   galleryAutoPlay =
-    setInterval(() => {
-      nextGallerySlide();
-    }, 4500);
+    setInterval(
+      () => {
+        nextGallerySlide();
+      },
+      4500
+    );
 }
 
 function resetGalleryAutoPlay() {
   startGalleryAutoPlay();
 }
 
-/* =========================
+/* =========================================================
    DOTS
-========================= */
+   ========================================================= */
 
 galleryDotButtons.forEach(
   (dot, index) => {
+
     dot.addEventListener(
       "click",
       () => {
-        showGallerySlide(index);
+
+        showGallerySlide(
+          index
+        );
+
         resetGalleryAutoPlay();
       }
     );
   }
 );
 
-/* =========================
+/* =========================================================
    POINTER DOWN
-========================= */
+   ========================================================= */
 
 galleryCarousel.addEventListener(
   "pointerdown",
-  (event) => {
+  event => {
+
     if (
       event.pointerType === "mouse" &&
       event.button !== 0
@@ -947,20 +1638,21 @@ galleryCarousel.addEventListener(
       galleryCarousel.setPointerCapture(
         pointerId
       );
-    } catch (error) {
-      /* Algunos navegadores pueden no soportarlo */
-    }
+    } catch (error) {}
   }
 );
 
-/* =========================
+/* =========================================================
    POINTER MOVE
-========================= */
+   ========================================================= */
 
 galleryCarousel.addEventListener(
   "pointermove",
-  (event) => {
-    if (!isDraggingGallery) {
+  event => {
+
+    if (
+      !isDraggingGallery
+    ) {
       return;
     }
 
@@ -982,7 +1674,10 @@ galleryCarousel.addEventListener(
       event.clientY -
       dragStartY;
 
-    if (!horizontalGesture) {
+    if (
+      !horizontalGesture
+    ) {
+
       const movementX =
         Math.abs(deltaX);
 
@@ -993,13 +1688,17 @@ galleryCarousel.addEventListener(
         movementX > 10 ||
         movementY > 10
       ) {
+
         if (
           movementX >
           movementY
         ) {
+
           horizontalGesture =
             true;
+
         } else {
+
           isDraggingGallery =
             false;
 
@@ -1016,12 +1715,15 @@ galleryCarousel.addEventListener(
       }
     }
 
-    if (!horizontalGesture) {
+    if (
+      !horizontalGesture
+    ) {
       return;
     }
 
     const carouselWidth =
-      galleryCarousel.getBoundingClientRect()
+      galleryCarousel
+        .getBoundingClientRect()
         .width;
 
     if (!carouselWidth) {
@@ -1029,23 +1731,27 @@ galleryCarousel.addEventListener(
     }
 
     const percentage =
-      (deltaX /
-        carouselWidth) *
-      100;
+      (
+        deltaX /
+        carouselWidth
+      ) * 100;
 
     galleryTrack.style.transform =
       `translate3d(calc(-${currentGalleryIndex * 100}% + ${percentage}%), 0, 0)`;
   }
 );
 
-/* =========================
+/* =========================================================
    FIN DEL DRAG
-========================= */
+   ========================================================= */
 
 function finishGalleryPointer(
   event
 ) {
-  if (!isDraggingGallery) {
+
+  if (
+    !isDraggingGallery
+  ) {
     return;
   }
 
@@ -1060,7 +1766,8 @@ function finishGalleryPointer(
     dragCurrentX -
     dragStartX;
 
-  const minimumSwipe = 45;
+  const minimumSwipe =
+    45;
 
   isDraggingGallery =
     false;
@@ -1071,35 +1778,44 @@ function finishGalleryPointer(
       pointerId
     )
   ) {
+
     try {
+
       galleryCarousel.releasePointerCapture(
         pointerId
       );
-    } catch (error) {
-      /* Sin acción */
-    }
+
+    } catch (error) {}
   }
 
-  pointerId = null;
+  pointerId =
+    null;
 
   if (
     horizontalGesture &&
     Math.abs(deltaX) >=
       minimumSwipe
   ) {
+
     if (deltaX < 0) {
+
       nextGallerySlide();
+
     } else {
+
       previousGallerySlide();
     }
+
   } else {
+
     showGallerySlide(
       currentGalleryIndex,
       true
     );
   }
 
-  horizontalGesture = false;
+  horizontalGesture =
+    false;
 
   resetGalleryAutoPlay();
 }
@@ -1114,32 +1830,39 @@ galleryCarousel.addEventListener(
   finishGalleryPointer
 );
 
-/* =========================
-   SALIDA DEL PUNTERO
-========================= */
+/* =========================================================
+   POINTER LEAVE
+   ========================================================= */
 
 galleryCarousel.addEventListener(
   "pointerleave",
-  (event) => {
+  event => {
+
     if (
       event.pointerType === "mouse" &&
       isDraggingGallery
     ) {
-      finishGalleryPointer(event);
+
+      finishGalleryPointer(
+        event
+      );
     }
   }
 );
 
-/* =========================
+/* =========================================================
    TECLADO
-========================= */
+   ========================================================= */
 
 galleryCarousel.addEventListener(
   "keydown",
-  (event) => {
+  event => {
+
     if (
-      event.key === "ArrowRight"
+      event.key ===
+      "ArrowRight"
     ) {
+
       event.preventDefault();
 
       nextGallerySlide();
@@ -1148,8 +1871,10 @@ galleryCarousel.addEventListener(
     }
 
     if (
-      event.key === "ArrowLeft"
+      event.key ===
+      "ArrowLeft"
     ) {
+
       event.preventDefault();
 
       previousGallerySlide();
@@ -1159,29 +1884,34 @@ galleryCarousel.addEventListener(
   }
 );
 
-/* =========================
-   REDIMENSIONAMIENTO
-========================= */
+/* =========================================================
+   RESIZE
+   ========================================================= */
 
 window.addEventListener(
   "resize",
   () => {
-    updateGalleryHeight(false);
+
+    setStableViewportHeight();
+
+    updateGalleryHeight(
+      false
+    );
   }
 );
 
-/* =========================
+/* =========================================================
    POSICIÓN INICIAL
-========================= */
+   ========================================================= */
 
 showGallerySlide(
   0,
   false
 );
 
-/* =========================
+/* =========================================================
    ENTRY ANIMATION
-========================= */
+   ========================================================= */
 
 const welcomeElement =
   mainPage.querySelector(
@@ -1228,7 +1958,8 @@ const animatedContent = [
 ];
 
 animatedContent.forEach(
-  (element) => {
+  element => {
+
     element.classList.add(
       "page-entry"
     );
@@ -1236,85 +1967,158 @@ animatedContent.forEach(
 );
 
 eventCards.forEach(
-  (card) => {
+  card => {
+
     card.classList.add(
       "page-entry"
     );
   }
 );
 
-/* =========================
+/* =========================================================
    MOSTRAR PÁGINA
-========================= */
+   ========================================================= */
 
-setTimeout(() => {
-  window.scrollTo(0, 0);
+function startMainExperience() {
 
-  cover.style.transition =
-    "opacity 0.25s ease-out, transform 0.25s ease-out";
-
-  cover.style.opacity = "0";
-
-  cover.style.transform =
-    "scale(1.01)";
-
-  mainPage.style.opacity = "1";
-
-  mainPage.style.pointerEvents =
-    "auto";
-
-  setTimeout(() => {
-    welcomeElement.classList.add(
-      "entry-visible"
-    );
-  }, 100);
-
-  setTimeout(() => {
-    countdownElement.classList.add(
-      "entry-visible"
-    );
-  }, 400);
-
-  setTimeout(() => {
-    eventElement.classList.add(
-      "entry-visible"
-    );
-  }, 700);
-
-  eventCards.forEach(
-    (card, index) => {
-      setTimeout(() => {
-        card.classList.add(
-          "entry-visible"
-        );
-      }, 900 + index * 180);
-    }
+  window.scrollTo(
+    0,
+    0
   );
 
-  setTimeout(() => {
-    locationElement.classList.add(
-      "entry-visible"
-    );
-  }, 1450);
+  cover.classList.remove(
+    "cover-hidden"
+  );
 
-  setTimeout(() => {
-    galleryElement.classList.add(
-      "entry-visible"
-    );
+  cover.style.transition =
+    "opacity 0.8s ease-out, transform 0.8s ease-out";
 
-    resetGalleryAutoPlay();
+  cover.style.opacity =
+    "1";
 
-    updateGalleryHeight(false);
-  }, 1750);
+  cover.style.transform =
+    "scale(1)";
 
-  setTimeout(() => {
-    confirmationElement.classList.add(
-      "entry-visible"
-    );
-  }, 2750);
+  mainPage.style.opacity =
+    "0";
 
-  setTimeout(() => {
-    cover.remove();
-  }, 300);
+  mainPage.style.pointerEvents =
+    "none";
 
-}, 3000);
+  setTimeout(
+    () => {
+
+      cover.style.opacity =
+        "0";
+
+      cover.style.transform =
+        "scale(1.01)";
+
+      mainPage.style.opacity =
+        "1";
+
+      mainPage.style.pointerEvents =
+        "auto";
+
+      setTimeout(
+        () => {
+
+          welcomeElement.classList.add(
+            "entry-visible"
+          );
+
+        },
+        100
+      );
+
+      setTimeout(
+        () => {
+
+          countdownElement.classList.add(
+            "entry-visible"
+          );
+
+        },
+        400
+      );
+
+      setTimeout(
+        () => {
+
+          eventElement.classList.add(
+            "entry-visible"
+          );
+
+        },
+        700
+      );
+
+      eventCards.forEach(
+        (card, index) => {
+
+          setTimeout(
+            () => {
+
+              card.classList.add(
+                "entry-visible"
+              );
+
+            },
+            900 +
+            index * 180
+          );
+        }
+      );
+
+      setTimeout(
+        () => {
+
+          locationElement.classList.add(
+            "entry-visible"
+          );
+
+        },
+        1450
+      );
+
+      setTimeout(
+        () => {
+
+          galleryElement.classList.add(
+            "entry-visible"
+          );
+
+          resetGalleryAutoPlay();
+
+          updateGalleryHeight(
+            false
+          );
+
+        },
+        1750
+      );
+
+      setTimeout(
+        () => {
+
+          confirmationElement.classList.add(
+            "entry-visible"
+          );
+
+        },
+        2750
+      );
+
+      setTimeout(
+        () => {
+
+          cover.remove();
+
+        },
+        850
+      );
+
+    },
+    3000
+  );
+}
