@@ -76,16 +76,16 @@ footballIntro.innerHTML = `
 
 app.appendChild(footballIntro);
 
-/* =========================================================
-   MÚSICA
-   ========================================================= */
-
 const introMusic = document.createElement("audio");
 
 introMusic.src = CONFIG.music;
+
 introMusic.preload = "auto";
+
 introMusic.loop = true;
-introMusic.volume = window.innerWidth <= 600 ? 0.14 : 0.14;
+
+introMusic.volume = 0.07;
+
 introMusic.setAttribute("aria-hidden", "true");
 
 document.body.appendChild(introMusic);
