@@ -84,7 +84,7 @@ const introMusic = document.createElement("audio");
 
 introMusic.src = CONFIG.music;
 introMusic.preload = "auto";
-introMusic.loop = false;
+introMusic.loop = true;
 introMusic.setAttribute("aria-hidden", "true");
 
 document.body.appendChild(introMusic);

@@ -2327,3 +2327,23 @@ footer small {
   -webkit-user-select: none;
   -webkit-user-drag: none;
 }
+
+/* =========================================================
+   AJUSTES PARA CELULAR
+   ========================================================= */
+@media (max-width: 600px) {
+
+  /* "MIS" de la portada */
+  .cover-small {
+    font-size: 1.35rem !important;
+    letter-spacing: 0.35em !important;
+  }
+
+  /* "18 AÑOS" dorado de la página */
+  .mini-badge {
+    font-size: 1.15rem !important;
+    padding: 10px 22px !important;
+    letter-spacing: 0.18em !important;
+  }
+
+}
