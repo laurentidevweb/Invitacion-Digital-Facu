@@ -1,7 +1,7 @@
 const CONFIG = {
   eventDate: "2026-10-31T21:00:00-03:00",
   mapsLink: "https://maps.app.goo.gl/5uuuT4VhBRKXMNh69",
-  whatsappLink: "https://wa.me/+5491130160060",
+  whatsappLink: "https://wa.me/5491130160060?text=Hola%20quiero%20confirmar%20mi%20asistencia%20a%20los%2018%20de%20Facu",
   music: "musica.mp3",
   gallery: [
     "foto1.png",
